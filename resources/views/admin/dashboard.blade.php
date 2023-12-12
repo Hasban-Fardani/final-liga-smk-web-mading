@@ -1,3 +1,5 @@
+<!-- The only way to do great work is to love what you do. - Steve Jobs -->
+
 <div>
-    <!-- The only way to do great work is to love what you do. - Steve Jobs -->
+    <p>Dashboard</p>
 </div>

@@ -1,13 +1,7 @@
-login_modal.addEventListener("click", (event) => {
-    const { left, right, top, bottom } = login_modal.getBoundingClientRect();
-    const { clientX, clientY } = event;
+let alert = document.querySelector('.alert');
 
-    if (
-        clientX < left ||
-        clientX > right ||
-        clientY < top ||
-        clientY > bottom
-    ) {
-        login_modal.close();
-    }
-});
+if (alert) {
+    setTimeout(() => {
+        alert.remove();
+    }, 3000);
+}

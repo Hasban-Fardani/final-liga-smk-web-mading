@@ -21,8 +21,8 @@ class VisitorFactory extends Factory
             'ip_address' => fake()->ipv4(),
             'user_agent' => fake()->userAgent(),
             'user_id' => fake()->numberBetween(1, 30),
-            'created_at' => now(),
-            'updated_at' => now(),
+            'post_id' => fake()->numberBetween(1, 30),
+            'visited_at' => now(),
         ];
     }
 }

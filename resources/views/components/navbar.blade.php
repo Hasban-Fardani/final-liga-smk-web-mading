@@ -1,18 +1,26 @@
 <!-- Knowing is not enough; we must apply. Being willing is not enough; we must do. - Leonardo da Vinci -->
 
-<nav class="w-full flex justify-between items-center px-4 md:px-8 lg:px-12 py-3 shadow-md bg-blue-600 text-white">
-    <h1 class="text-2xl font-bold">Mading</h1>
-    <ul class="flex gap-2">
+<nav class="bg-blue-500 w-full flex justify-between items-center px-12 md:px-16 lg:px-20 py-3 shadow-md ">
+    <h1 class="text-2xl text-white font-bold">Madig</h1>
+    <ul class="flex items-center gap-4">
+        <li><a href="" class="link-white">Home</a></li>
+        <li><a href="" class="link-white">About</a></li>
         @auth
             @if (auth()->user()->is_admin)
-                <li><a href="{{route('admin.dashboard')}}" class="link text-gray-700 hover:underline hover:text-gray-400">Dashboard</a></li>
+                <li><a href="{{ route('admin.dashboard') }}"
+                        class="link-white text-gray-700 hover:underline hover:text-gray-400">Dashboard</a></li>
             @else
-                <li><a href="">Saved</a></li>
+                <li>
+                    <button class="flex flex-col items-center justify-center text-white" onclick="user_dropdown.show()">
+                        <img src="{{ auth()->user()->avatar }}" alt="{{ auth()->user()->username }}'s avatar" width="20" class="text-white">
+                    </button>
+                </li>
             @endif
         @else
-            <li><button onclick="login_modal.showModal()">Login</button></li>
+            <li><button onclick="login_modal.showModal()" class="link-white">Login</button></li>
         @endauth
     </ul>
 </nav>
 
-<x-login-modal/>
+<x-login-modal />
+<x-user-dropdown />

@@ -2,7 +2,8 @@
 export default {
   content: [
     "./resources/**/*.blade.php",
-    "./resources/**/**/*.blade.php"
+    "./resources/views/*.blade.php",
+    "./resources/views/components/*.blade.php"
   ],
   theme: {
     extend: {
@@ -25,7 +26,7 @@ export default {
           "100%": {
             opacity: "0",
             transform: "translateY(-10px)",
-          },
+          }
         },
       },
       animation: {

@@ -14,10 +14,15 @@
     {{-- custom css --}}
     @stack('css')
 </head>
-<body class="min-h-screen">
+<body class="min-h-screen relative">
     <header>
         <x-navbar></x-navbar>
     </header>
+    @if ($errors->any())
+        <x-alert :message="$errors->all()[0]" type="error" />
+            {{ $errors->all()[0] }}
+    @endif
+    
     <main>
         @yield("content")
     </main>

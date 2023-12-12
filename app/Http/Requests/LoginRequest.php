@@ -42,4 +42,28 @@ class LoginRequest extends FormRequest
             "type.required" => "The type field is required.",
         ];
     }
+
+    public function after()
+    {
+        return function () {
+            $this->formatRequest();
+        };
+    }
+
+    public function formatRequest()
+    {
+        switch ($this->input("type")) {
+            case 'email':
+                $this->request->add(['email' => $this->input("identity")]);
+                break;
+            case 'username':
+                $this->request->add(['username' => $this->input("identity")]);
+                break;
+            case 'ni':
+                $this->request->add(['ni' => $this->input("identity")]);
+                break;
+        }
+        $this->request->remove('type');
+        $this->request->remove('identity');
+    }
 }

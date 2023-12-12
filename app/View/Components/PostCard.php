@@ -6,12 +6,12 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class Alert extends Component
+class PostCard extends Component
 {
     /**
      * Create a new component instance.
      */
-    public function __construct(public $type = 'info', public $message = '')
+    public function __construct(public $post)
     {
         //
     }
@@ -21,9 +21,8 @@ class Alert extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.alert', [
-            'type' => $this->type,
-            'message' => $this->message
+        return view('components.post-card', [
+            'post' => $this->post
         ]);
     }
 }

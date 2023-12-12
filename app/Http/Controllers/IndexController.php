@@ -11,9 +11,9 @@ class IndexController extends Controller
      */
     public function __invoke()
     {
-        $posts = Post::select(['id', 'title', 'slug', 'image', 'excerpt'])->paginate(5);
+        $posts = Post::paginate(5);
         // $images_featured = Post::images()->get();
-        // dd($images_featured);
+        // dd($posts[0]->category->name);
         // return view index
         return view('index', compact(['posts']));
     }
