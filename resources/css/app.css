@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+    @apply scroll-smooth;
+}
+
+body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+@layer utilities {
+    .btn {
+        @apply text-black p-2 px-3 rounded-lg bg-slate-400 bg-opacity-80  hover:bg-opacity-100 ;
+    }
+}
