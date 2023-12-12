@@ -11,7 +11,7 @@ class Slide extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public function __construct(public $posts = [])
     {
         //
     }
@@ -21,6 +21,8 @@ class Slide extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.slide');
+        return view('components.slide', [
+            'posts' => $this->posts
+        ]);
     }
 }

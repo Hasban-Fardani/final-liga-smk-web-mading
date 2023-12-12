@@ -38,4 +38,8 @@ class Post extends Model
             $query->where('name', 'information');
         });
     }
+
+    public function scopeImages($query){
+        return $query->select(['id', 'image'])->orderBy('id', 'desc')->get();
+    }
 }

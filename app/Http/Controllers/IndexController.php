@@ -11,11 +11,10 @@ class IndexController extends Controller
      */
     public function __invoke()
     {
-        $posts = Post::paginate();
-        $mostviewed_posts = Post::mostviewed()->paginate();
-        $information_posts = Post::information()->paginate();
-
+        $posts = Post::select(['id', 'title', 'slug', 'image', 'excerpt'])->paginate(5);
+        // $images_featured = Post::images()->get();
+        // dd($images_featured);
         // return view index
-        return view('index', compact(['posts', 'mostviewed_posts', 'information_posts']));
+        return view('index', compact(['posts']));
     }
 }

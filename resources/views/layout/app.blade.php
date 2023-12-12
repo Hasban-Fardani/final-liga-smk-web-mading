@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="lang="{{ str_replace('_', '-', app()->getLocale()) }}"">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,7 +14,7 @@
     {{-- custom css --}}
     @stack('css')
 </head>
-<body>
+<body class="min-h-screen">
     <header>
         <x-navbar></x-navbar>
     </header>
