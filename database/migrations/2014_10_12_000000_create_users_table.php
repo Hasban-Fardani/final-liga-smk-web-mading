@@ -16,9 +16,9 @@ return new class extends Migration
             $table->string('avatar')->default('fontawesome-6.5.1/svgs/solid/user.svg');
             $table->string('username')->unique();
             $table->string('email')->unique();
-            $table->string('title')->nullable();
+            $table->string('role')->default('siswa');
             $table->string('password');
-            $table->enum('role', ['admin', 'creator', 'user'])->default('user');
+            $table->enum('permission', ['admin', 'creator', 'user'])->default('user');
             $table->enum('type', ['siswa', 'guru', 'pegawai'])->default('siswa');
             $table->rememberToken();
             $table->timestamps();
