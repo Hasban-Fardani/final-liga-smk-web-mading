@@ -18,6 +18,11 @@ class VisitorFactory extends Factory
     {
         return [
             //
+            'ip_address' => fake()->ipv4(),
+            'user_agent' => fake()->userAgent(),
+            'user_id' => fake()->numberBetween(1, 30),
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }
