@@ -8,5 +8,6 @@
         body:   
         {{ $post->body }}
     </p>
-    <p>author: {{ $post->creator()->username }}</p>
+    {{ $post->creator->username }}
+    <p>{{ $post->created_at->diffForHumans() }}</p>
 </div>

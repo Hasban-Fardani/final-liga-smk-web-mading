@@ -1,5 +1,8 @@
 <!-- The only way to do great work is to love what you do. - Steve Jobs -->
-
-<div>
-    <p>Dashboard</p>
-</div>
+@extends('layout.admin')
+@section('content')
+    <div>
+        <p>Dashboard</p>
+        <canvas id="acquisitions" style="width: 800px;"></canvas>
+    </div>
+@endsection

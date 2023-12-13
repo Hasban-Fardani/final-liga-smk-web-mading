@@ -14,10 +14,6 @@
                 <input type="password" name="password" id="password" class="border text-lg px-2 py-1 rounded-md"
                     required>
             </div>
-            <div>
-                <input type="checkbox" name="remember" id="remember">
-                <label for="remember">Remember Me</label>
-            </div>
             <div class="text-center">
                 <div class="border-b"></div>
                 <p>Login With</p>

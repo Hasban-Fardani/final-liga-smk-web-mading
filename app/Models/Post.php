@@ -18,11 +18,14 @@ class Post extends Model
         return $this->belongsTo(Category::class);
     }
 
-    // TODO: one to one relationship
+    // 
     public function creator(){
         return $this->belongsTo(User::class, 'creator_id');
     }
     
+    public function tags(){
+        return $this->hasMany(PostTag::class, 'post_id', 'id');
+    }
     /**
      * A description of the entire PHP function.
      *

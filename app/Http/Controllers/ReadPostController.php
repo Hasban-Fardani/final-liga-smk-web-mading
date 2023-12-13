@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Services\Class\UserService;
+use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
 
 class ReadPostController extends Controller

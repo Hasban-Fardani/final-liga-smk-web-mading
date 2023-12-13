@@ -11,7 +11,9 @@ class IndexController extends Controller
      */
     public function __invoke()
     {
-        $posts = Post::paginate(5);
+        // get all posts
+        // solved n+1 problem using with
+        $posts = Post::with('creator')->paginate(5);
         // $images_featured = Post::images()->get();
         // dd($posts[0]->category->name);
         // return view index

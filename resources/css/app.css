@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+html::-webkit-scrollbar {
+    width: 8px;
+}
+
+html::-webkit-scrollbar-thumb {
+    background-color: #a0aec0;
+    border-radius: 10px;
+}
+
 body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
@@ -18,10 +27,46 @@ body {
     @apply text-blue-500 hover:text-blue-800
 }
 
-.link-white {
-    @apply text-white hover:text-gray-300 hover:underline hover:underline-offset-4;
+.link-nav {
+    @apply text-base text-black py-3 group-hover:text-blue-500 lg:text-white lg:group-hover:text-gray-500;
+}
+/* 
+div.dataTables_wrapper {
+    @apply flex flex-col p-6;
 }
 
-.link-black {
-    @apply text-black hover:text-gray-500 hover:underline hover:underline-offset-4;
+div.dt-buttons .dt-button {
+    @apply bg-gray-200 py-1 px-2 rounded-md;
+}
+
+div.dataTables_filter {
+    
+}
+
+table.dataTable {
+    
+}
+
+div.dataTables_info {
+
+}
+
+.dataTables_paginate {
+
+} */
+
+.humburger-line {
+    @apply w-[30px] h-[2px] my-2 block bg-white;
+}
+
+.humburger-active > span:nth-child(1) {
+    @apply rotate-45;
+}
+
+.humburger-active > span:nth-child(2) {
+    @apply scale-0;
+}
+
+.humburger-active > span:nth-child(3) {
+    @apply -rotate-45;
 }

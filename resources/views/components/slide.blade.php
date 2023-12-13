@@ -27,7 +27,7 @@
     </div>
 
     {{-- indicator --}}
-    <ul class="absolute bottom-6 left-1/2 translate-x-[-50%] flex gap-2 indicators">
+    <ul class="absolute bottom-10 left-1/2 translate-x-[-50%] flex gap-2 indicators">
         <li class="w-2 h-2 rounded-full bg-white active-indicator"></li>
         @for ($i = 0; $i < $posts->count() - 1; $i++)
             <li class="w-2 h-2 rounded-full bg-white"></li>
