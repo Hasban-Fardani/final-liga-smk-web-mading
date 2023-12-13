@@ -11,14 +11,15 @@ class LogoutRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return auth()->check();
     }
 
     public function after(){
         return function(){
-            header_remove('Cache-Control');
-            header_remove('Pragma');
-            header_remove('Expires');
+            // disable prevent back after logout
+            $this->headers->set('Cache-Control','nocache, no-store, max-age=0, must-revalidate');
+            $this->headers->set('Pragma','no-cache');
+            $this->headers->set('Expires','Fri, 01 Jan 1990 00:00:00 GMT');
         };
     }
 }

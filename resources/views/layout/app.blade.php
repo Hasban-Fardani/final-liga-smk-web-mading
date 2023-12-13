@@ -9,12 +9,8 @@
     {{-- Fontawesome css --}}
     <link rel="stylesheet" href="{{ asset('pkg/fontawesome-6.5.1/css/all.min.css') }}">
 
-    <link rel="stylesheet" href="{{ asset('pkg/DataTables/DataTables-1.13.8/css/dataTables.foundation.css') }}">
-
-    <link rel="stylesheet" href="{{ asset('pkg/DataTables/Buttons-2.4.2/css/buttons.dataTables.min.css') }}">
-
     {{-- Vite --}}
-    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/admin.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     {{-- custom css --}}
     @stack('css')
@@ -23,34 +19,29 @@
 <body class="min-h-screen relative">
     <header>
         <x-navbar></x-navbar>
+        <x-login-modal />
     </header>
-    <x-login-modal />
-    <x-user-dropdown />
     @if ($errors->any())
         <x-alert :message="$errors->all()[0]" type="error" />
-        {{ $errors->all()[0] }}
     @endif
 
+    @if ($m = session('error'))
+        <x-alert :message="$m" type="error" />
+    @endif
+
+    @if ($m = session('success'))
+        <x-alert :message="$m" type="success" />
+    @endif
+
+    @if ($m = session('info'))
+        <x-alert :message="$m" type="info" />
+    @endif
     <main>
         @yield('content')
     </main>
     <footer>
         <x-footer></x-footer>
     </footer>
-
-    {{-- JQuery --}}
-    <script src="{{ asset('pkg/jQuery-3.7.0/jquery-3.7.0.min.js') }}"></script>
-
-    {{-- Datatables --}}
-    <script src="{{ asset('pkg/DataTables/datatables.min.js') }}"></script>
-
-    {{-- Datatables buttons --}}
-    <script src="{{ asset('pkg/DataTables/Buttons-2.4.2/js/buttons.dataTables.min.js') }}"></script>
-
-    {{--  --}}
-    <script src="{{ asset('pkg/DataTables/pdfmake-0.2.7/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('pkg/DataTables/pdfmake-0.2.7/vfs_fonts.js') }}"></script>
-    <script src="{{ asset('pkg/DataTables/JSZip-3.10.1/jszip.min.js') }}"></script>
 
     {{-- app script --}}
     <script src="{{ asset('assets/js/main.js') }}"></script>

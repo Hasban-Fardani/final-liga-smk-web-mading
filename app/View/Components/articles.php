@@ -2,16 +2,17 @@
 
 namespace App\View\Components;
 
+use App\Models\Post;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class HeroArticle extends Component
+class articles extends Component
 {
     /**
      * Create a new component instance.
      */
-    public function __construct(public $posts=[])
+    public function __construct(public $posts)
     {
         //
     }
@@ -21,6 +22,6 @@ class HeroArticle extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.hero-article', ['posts' => $this->posts]);
+        return view('components.articles', ['posts' => $this->posts]);
     }
 }

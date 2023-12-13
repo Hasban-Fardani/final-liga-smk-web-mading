@@ -1,19 +1,25 @@
 <!-- Breathing in, I calm body and mind. Breathing out, I smile. - Thich Nhat Hanh -->
 
 {{-- slider --}}
-<div class="relative h-[90vh] slider">
+<div class="relative h-[60vh] slider">
     {{-- list --}}
-    <div class="relative flex image-list w-full">
+    <div class="relative flex w-full image-list">
         @foreach ($posts as $post)
             {{-- item --}}
             <div class="absolute opacity-0 image-slide">
-                <img src="{{ $post->image }}" alt="{{ $post->title }}" class="w-screen max-w-full h-[92vh] object-cover" loading="lazy">
-                <div class="absolute bottom-20 left-1/2 translate-x-[-50%] py-2 w-[90%] lg:w-[80%] flex flex-col gap-2 justify-center">
-                    <p class="text-lg text-white text-center font-medium rounded-lg">
-                        {{ $post->title }}
-                    </p>
-                    <button class="link-white">Selengkapnya</button>
-                </div>
+                <img src="{{ $post->image }}" alt="{{ $post->title }}"
+                class="w-screen max-w-full h-[62vh] object-cover" loading="lazy">
+                <a href="{{ route('posts.read', $post->slug) }}">
+                    <div
+                        class="absolute bottom-16 lg:bottom-20 left-1/2 translate-x-[-50%] py-2 lg:w-[85%] flex flex-col gap-2 justify-center items-center">
+                        {{-- box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.5) --}}
+                        <p class="block text-white text-center">{{ $post->creator->username }} - {{ $post->created_at->diffForHumans() }}</p>
+                        <p class="text-lg text-white text-center font-semibold   rounded-lg">
+                            {{ $post->title }}
+                            <span class="text-md font-normal underline">Selengkapnya</span>
+                        </p>
+                    </a>
+                    </div>
             </div>
         @endforeach
     </div>
@@ -27,7 +33,7 @@
     </div>
 
     {{-- indicator --}}
-    <ul class="absolute bottom-10 left-1/2 translate-x-[-50%] flex gap-2 indicators">
+    <ul class="absolute bottom-4 lg:bottom-8 left-1/2 translate-x-[-50%] flex gap-2 indicators">
         <li class="w-2 h-2 rounded-full bg-white active-indicator"></li>
         @for ($i = 0; $i < $posts->count() - 1; $i++)
             <li class="w-2 h-2 rounded-full bg-white"></li>

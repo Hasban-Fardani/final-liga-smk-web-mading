@@ -3,6 +3,5 @@
 @section('content')
     <div>
         <p>Dashboard</p>
-        <canvas id="acquisitions" style="width: 800px;"></canvas>
     </div>
 @endsection

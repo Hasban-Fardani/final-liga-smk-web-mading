@@ -2,16 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-html::-webkit-scrollbar {
-    width: 8px;
+*::-webkit-scrollbar {
+    @apply w-2 bg-slate-600;
 }
 
-html::-webkit-scrollbar-thumb {
-    background-color: #a0aec0;
-    border-radius: 10px;
+*::-webkit-scrollbar-thumb {
+    @apply bg-blue-700;
 }
 
 body {
+    @apply scroll-smooth;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
@@ -30,30 +30,6 @@ body {
 .link-nav {
     @apply text-base text-black py-3 group-hover:text-blue-500 lg:text-white lg:group-hover:text-gray-500;
 }
-/* 
-div.dataTables_wrapper {
-    @apply flex flex-col p-6;
-}
-
-div.dt-buttons .dt-button {
-    @apply bg-gray-200 py-1 px-2 rounded-md;
-}
-
-div.dataTables_filter {
-    
-}
-
-table.dataTable {
-    
-}
-
-div.dataTables_info {
-
-}
-
-.dataTables_paginate {
-
-} */
 
 .humburger-line {
     @apply w-[30px] h-[2px] my-2 block bg-white;

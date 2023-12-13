@@ -15,7 +15,7 @@ class LoginController extends Controller
             return redirect()->back()->with('error', 'Invalid credentials');
         }
         
-        if ($user->is_admin) {
+        if ($user->permission == 'admin') {
             return redirect()->route('admin.dashboard');
         }
 

@@ -13,6 +13,6 @@ class LogoutController extends Controller
     public function __invoke(LogoutRequest $request)
     {
         Auth::logout();
-        return redirect()->back()->with('success', 'You have successfully logged out.');
+        return redirect('/')->with('success', 'You have successfully logged out.');
     }
 }

@@ -11,7 +11,8 @@ class LoginRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        // check user is not login
+        return !auth()->check();
     }
 
     /**

@@ -30,6 +30,8 @@ class UserService implements UserServiceInterface {
         $visitor = new Visitor();
         if (Auth::check()){
             $visitor->user_id = Auth::user()->id;
+        } else {
+            $visitor->user_id = null;
         }
 
         $visitor->ip_address = $request->ip();
