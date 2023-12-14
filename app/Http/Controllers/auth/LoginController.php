@@ -16,9 +16,9 @@ class LoginController extends Controller
         }
         
         if ($user->permission == 'admin') {
-            return redirect()->route('admin.dashboard');
+            return redirect()->route('admin.dashboard')->with('success', 'Login successfully');
         }
 
-        return redirect()->route('index');
+        return redirect()->route('index')->with('success', 'Login successfully');
     }
 }

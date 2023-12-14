@@ -36,7 +36,7 @@ class UserService implements UserServiceInterface {
 
         $visitor->ip_address = $request->ip();
         $visitor->user_agent = $request->header('User-Agent');
-        $visitor->post_id = $post->id;
+        $visitor->slug = $post->slug;
         $visitor->save();
         return $post;
     }

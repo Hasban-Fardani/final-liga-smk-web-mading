@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('siswa_details', function (Blueprint $table) {
+        Schema::create('student_details', function (Blueprint $table) {
             $table->id();
             $table->string('full_name');
             $table->enum('gender', ['male', 'female']);
@@ -23,9 +23,6 @@ return new class extends Migration
             $table->unsignedBigInteger('ext_id');
             $table->foreign('ext_id')->references('id')->on('extraculliculars');
 
-            $table->string('position_class');
-            $table->string('position_extracullicular');
-
             $table->foreign('id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
@@ -36,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('siswa_details');
+        Schema::dropIfExists('student_details');
     }
 };

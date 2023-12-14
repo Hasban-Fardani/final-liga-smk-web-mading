@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('teacher_details', function (Blueprint $table) {
             $table->id();
             $table->string('full_name');
-            $table->string('position');
+            $table->string('position')->nullable();
             $table->enum('gender', ['male', 'female']);
             $table->string('nip', 15);
             $table->foreign('id')->references('id')->on('users')->onDelete('cascade');

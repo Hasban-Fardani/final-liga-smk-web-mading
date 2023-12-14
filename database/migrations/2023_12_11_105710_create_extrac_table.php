@@ -14,8 +14,6 @@ return new class extends Migration
         Schema::create('extraculliculars', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('description');
-            $table->string('logo');
             $table->enum('type', ['community', 'organization']);
             $table->timestamps();
         });

@@ -2,15 +2,15 @@
 
 <nav class="bg-blue-500 w-full flex justify-between items-center px-6 md:px-12 lg:px-16 py-3 shadow-md relative z-10">
     {{-- search form --}}
-    <div class="flex justify-start items-start w-1/3">
+    <div class="hidden md:flex justify-start items-start w-1/3">
         <form action="/" method="GET">
-            <input type="text" name="search" id="search" value="{{ request('search') }}" class="rounded-md text-lg px-2">
-            <button type="submit"><i class="fa-solid fa-magnifying-glass p-1"></i></button>
+            <input type="text" name="search" id="search" value="{{ request('search') }}" class="rounded-md text-lg px-2 w-[80%]">
+            <button type="submit"><i class="fa-solid fa-magnifying-glass p-1 text-white"></i></button>
         </form>
     </div>
 
 
-    <h1 class="text-2xl text-white text-center font-bold w-1/3">Majalah Digital</h1>
+    <h1 class="flex justify-start lg:justify-center text-2xl text-white text-center font-bold w-1/3"><a href="/">Majalah Digital</a></h1>
 
 
     {{-- button dropdown on small --}}
@@ -52,7 +52,7 @@
 
         // profile detail modal
         function toggleProfileModal() {
-
+            
         }
     </script>
 @endpush

@@ -6,12 +6,12 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class PostCardImg extends Component
+class Tag extends Component
 {
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public function __construct(public string $name, public string $class = "")
     {
         //
     }
@@ -21,6 +21,9 @@ class PostCardImg extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.post-card-img');
+        return view('components.tag', [
+            'name' => $this->name,
+            'class' => $this->class
+        ]);
     }
 }

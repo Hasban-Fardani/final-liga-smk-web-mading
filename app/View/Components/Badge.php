@@ -12,13 +12,11 @@ class Badge extends Component
      * Create a new component instance.
      */
     public function __construct(
-        public string $text_color = "text-white", 
-        public string $bg_color = "bg-blue-600", 
         public string $text = "Badge",
-        public string $top = "top-0",
-        public string $right = "right-0",
-        public string $bottom = "",
-        public string $left = "",
+        public string $color = "primary",
+        public string $position = "absolute",
+        public string $class = "",
+        public bool $tag = false,
         ){}
 
     /**
@@ -26,6 +24,10 @@ class Badge extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.badge');
+        return view('components.badge', [
+            'text' => $this->text,
+            'color' => $this->color,
+            'class' => $this->class
+        ]);
     }
 }

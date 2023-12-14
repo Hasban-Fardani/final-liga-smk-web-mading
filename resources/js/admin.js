@@ -1,1 +1,2 @@
-import Chart from 'chart.js/auto';
+import './pdf';
+import './dashboard_chart'

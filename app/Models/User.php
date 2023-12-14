@@ -2,11 +2,10 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-// use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -46,17 +45,25 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function details(){
-        if ($this->type == 'student'){
-            return $this->hasOne(StudentDetail::class);
-        }else if ($this->type == 'teacher'){
-            return $this->hasOne(TeacherDetail::class);
-        } else if ($this->type == 'staff'){
-            return $this->hasOne(StaffDetail::class);
+    public function scopeGetname($query){
+        return $this->username;
+    }
+
+    public function scopeDetails($query){
+        if ($this->type == 'guru') {
+            return DB::table('teacher_details')->where('id', $this->id)->first();
+        } else if ($this->type == 'siswa') {
+            return DB::table('student_details')->where('id', $this->id)->first();
+        } else {
+            return DB::table('staff_details')->where('id', $this->id)->first();
         }
     }
 
     public function posts(){
         return $this->hasMany(Post::class, 'creator_id');
+    }
+
+    public function role(){
+        return $this->belongsTo(Role::class, 'role_id');
     }
 }

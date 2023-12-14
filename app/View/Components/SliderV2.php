@@ -6,12 +6,12 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class Modal extends Component
+class SliderV2 extends Component
 {
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public function __construct(public $posts = [])
     {
         //
     }
@@ -21,6 +21,8 @@ class Modal extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.modal');
+        return view('components.slider-v2', [
+            'posts' => $this->posts
+        ]);
     }
 }

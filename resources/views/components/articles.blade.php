@@ -1,16 +1,21 @@
 <!-- The only way to do great work is to love what you do. - Steve Jobs -->
-<div class="flex flex-col gap-6">
+<div class="flex flex-col gap-3">
     @foreach ($posts as $post)
-    <a href="{{ route('posts.read', $post->slug) }}" class="group">
-        <div class="flex flex-col gorup">
-            <h2 class="text-xl truncate group-hover:underline">{{ $post->title }}</h2>
-            <h3 class="text-sm group ">{{ $post->excerpt }}</h3>
-            <div class="flex w-full justify-between gap-3 group ">
-                <p class="text-sm">{{ $post->creator->username }}</p>
-                <p class="text-sm">{{ $post->created_at->diffForHumans() }}</p>
+        <a href="{{ route('posts.read', $post->slug) }}" class="group">
+            <div class="flex flex-col group relative">
+
+                <x-badge :text="$post->category->name" position="relative" />
+
+                <h2 class="text-xl truncate mt-1 group-hover:underline">{{ $post->title }}</h2>
+                <div class="flex w-full justify-between gap-2 group ">
+                    <p class="text-sm">{{ $post->creator->username }}</p>
+                    <div class="flex gap-2">
+                        <p class="text-sm flex gap-1 items-center"><i class="fa-solid fa-eye"></i>{{ $post->views }} </p>
+                        <p class="text-sm flex gap-1 items-center"><i class="fa-solid fa-clock"></i>{{ $post->created_at->diffForHumans() }}</p>
+                    </div>
+                </div>
             </div>
-        </div>
-        <hr>
-    </a>
+            <hr class="mt-2">
+        </a>
     @endforeach
 </div>

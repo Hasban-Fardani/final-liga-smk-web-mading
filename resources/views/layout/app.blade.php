@@ -9,6 +9,9 @@
     {{-- Fontawesome css --}}
     <link rel="stylesheet" href="{{ asset('pkg/fontawesome-6.5.1/css/all.min.css') }}">
 
+    {{-- video js --}}
+    <link href="https://vjs.zencdn.net/8.6.1/video-js.css" rel="stylesheet" />
+
     {{-- Vite --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -16,7 +19,7 @@
     @stack('css')
 </head>
 
-<body class="min-h-screen relative">
+<body class="min-h-screen relative overflow-x-hidden">
     <header>
         <x-navbar></x-navbar>
         <x-login-modal />
@@ -39,7 +42,7 @@
     <main>
         @yield('content')
     </main>
-    <footer>
+    <footer class="mt-12">
         <x-footer></x-footer>
     </footer>
 

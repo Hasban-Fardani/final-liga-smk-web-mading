@@ -33,11 +33,15 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('creator', function ($user) {
-           return $user->permission == 'creator' || $user->permission == 'admin'; 
+           return $user->permission == 'creator'; 
         });
 
         Gate::define('edit', function (User $user, Post $post) {
             return $user->id == $post->user_id && ($user->permission == 'admin' || $user->permission == 'creator');
+        });
+
+        Gate::define('user', function ($user) {
+            return $user->permission == 'user';
         });
     }
 }

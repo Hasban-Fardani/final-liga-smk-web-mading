@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 *::-webkit-scrollbar {
-    @apply w-2 bg-slate-600;
+    @apply w-2 bg-transparent;
 }
 
 *::-webkit-scrollbar-thumb {
-    @apply bg-blue-700;
+    @apply bg-blue-500;
 }
 
 body {
@@ -35,14 +35,44 @@ body {
     @apply w-[30px] h-[2px] my-2 block bg-white;
 }
 
-.humburger-active > span:nth-child(1) {
+.humburger-active>span:nth-child(1) {
     @apply rotate-45;
 }
 
-.humburger-active > span:nth-child(2) {
+.humburger-active>span:nth-child(2) {
     @apply scale-0;
 }
 
-.humburger-active > span:nth-child(3) {
+.humburger-active>span:nth-child(3) {
     @apply -rotate-45;
+}
+
+/* Datatables styles */
+#dataTable > thead > tr > th {
+    @apply border-collapse border text-base font-semibold px-5 bg-blue-300 max-w-fit;
+}
+
+
+#dataTable > tbody > tr > td {
+    @apply border-collapse border px-2;
+}
+
+#dataTable_filter > label > input[type=search] {
+    @apply border;
+}
+
+#dataTable_length {
+    @apply mt-3
+}
+
+.dt-button {
+    @apply bg-blue-500 hover:bg-blue-700 text-sm text-white font-semibold py-1 px-4 rounded;
+}
+
+#dataTable_paginate {
+    @apply flex justify-end gap-2;
+}
+
+#dataTable_paginate .paginate_button .next {
+    @apply bg-blue-700
 }

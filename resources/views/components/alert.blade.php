@@ -1,5 +1,5 @@
 <!-- An unexamined life is not worth living. - Socrates -->
-<div class="w-screen px-12 md:px-16 lg:px-20 absolute top-20 lg:top-24 animate-fade-in-down alert z-50">
+<div class="w-screen px-12 md:px-16 lg:px-20 absolute top-14 lg:top-16 animate-fade-in-down alert z-50">
     <div class="
     {{ $type === 'error' ? 'bg-red-500' : '' }}
     {{ $type === 'warning' ? 'bg-yellow-500' : '' }}    
