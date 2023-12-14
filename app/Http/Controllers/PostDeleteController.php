@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class CreatorPostController extends Controller
+class PostDeleteController extends Controller
 {
     //
 }

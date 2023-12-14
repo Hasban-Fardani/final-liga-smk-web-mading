@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class CreatorDashboardController extends Controller
+class PostCreateController extends Controller
 {
     //
     public function __invoke()
     {
-        return view('creator.dashboard');
+        return view('posts.create');
     }
 }

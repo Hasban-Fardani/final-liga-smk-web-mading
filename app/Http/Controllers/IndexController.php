@@ -16,27 +16,36 @@ class IndexController extends Controller
     {
         // get categories
         $categories = Category::all();
-        $category_information = $categories->where('slug', 'pengumuman')->first();
 
-        $posts_slider = Post::with('creator', 'category', 'tags')->limit(5)->get();
-        $posts_featured = Post::orderBy('views', 'desc')->with('creator', 'category', 'tags')->where('category_id', $category_information->id)->limit(5)->get();
+        // get post for slider
+        $posts_slider = Post::with('creator', 'category', 'tags')
+            ->published()
+            ->limit(5)
+            ->get();
+
+        // get post for featured
+        $posts_featured = Post::orderBy('published_at', 'desc')
+            ->with('creator', 'category', 'tags')
+            ->category('pengumuman')
+            ->published()
+            ->limit(5)
+            ->get();
 
         if ($request->input('search')) {
-            $posts = $postService->searchTitle($request->input('search'));
-            // return view index
+            $posts = $postService->search($request->input('search'));
+            
             return view('index', ['posts' => $posts, 'posts_slider' => $posts_slider, 'posts_featured' => $posts_featured, 'categories' => $categories]);
         }
 
         if ($request->input('category')) {
             $posts = $postService->getByCategory($request->input('category'));
-            // return view index
+            
             return view('index', ['posts' => $posts, 'posts_slider' => $posts_slider, 'posts_featured' => $posts_featured, 'categories' => $categories]);
         }
 
         // get all posts
-        $posts = $postService->getAll();
-
-        // return view index
+        $posts = $postService->getAllPublished();
+        
         return view('index', ['posts' => $posts, 'posts_slider' => $posts_slider, 'posts_featured' => $posts_featured, 'categories' => $categories]);
     }
 }

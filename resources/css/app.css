@@ -52,7 +52,6 @@ body {
     @apply border-collapse border text-base font-semibold px-5 bg-blue-300 max-w-fit;
 }
 
-
 #dataTable > tbody > tr > td {
     @apply border-collapse border px-2;
 }
@@ -70,9 +69,15 @@ body {
 }
 
 #dataTable_paginate {
-    @apply flex justify-end gap-2;
+    @apply flex justify-end items-center gap-4;
 }
 
-#dataTable_paginate .paginate_button .next {
-    @apply bg-blue-700
+#dataTable_paginate > span > a {
+    @apply bg-blue-500 hover:bg-blue-700 text-sm text-white font-semibold p-1;
+}
+#dataTable_next {
+    @apply text-sm p-1 hover:font-bold;
+}
+#dataTable_previous {
+    @apply text-sm p-1 hover:font-bold;
 }

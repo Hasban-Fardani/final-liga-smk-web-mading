@@ -17,6 +17,7 @@ class PostFactory extends Factory
      */
     public function definition(): array
     {
+        $accepted = $this->faker->boolean();
         return [
             //
             'image' => $this->faker->imageUrl(),
@@ -24,8 +25,10 @@ class PostFactory extends Factory
             'slug' => $this->faker->slug(),
             'excerpt' => $this->faker->text(maxNbChars:20),
             'body' => $this->faker->text(),
+            'accepted' => $accepted,
+            'status' => $accepted ? 'PUBLISHED' : 'PENDING',
             'views' => $this->faker->numberBetween(0, 1000),
-            'creator_id' => 1,
+            'creator_id' => $this->faker->numberBetween(1, 2),
             'category_id' => $this->faker->numberBetween(1, 2)
         ];
     }

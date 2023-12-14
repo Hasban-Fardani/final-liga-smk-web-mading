@@ -3,6 +3,10 @@
 
 {{-- slider --}}
 <div class="relative h-[90vh] md:h-[80vh] overflow-x-hidden slider">
+    @if (empty($posts) || count($posts) == 0)
+    {{-- center verical and horizontal --}}
+        <p class="text-center">Tidak ada post</p>
+    @endif
     {{-- list --}}
     <div class="relative flex image-list">
         @foreach ($posts as $post)

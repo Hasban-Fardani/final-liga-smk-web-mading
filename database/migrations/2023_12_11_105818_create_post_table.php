@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('excerpt', 20);
             $table->text('body');
+            $table->boolean('accepted')->default(false);
+            $table->enum('status', ['PUBLISHED', 'DRAFT', 'UNPUBLISHED', 'REJECTED', 'PENDING'])->default('DRAFT');
             $table->unsignedBigInteger('creator_id');
             $table->foreign('creator_id')->references('id')->on('users');
             $table->unsignedBigInteger('category_id');

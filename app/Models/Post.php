@@ -2,37 +2,67 @@
 
 namespace App\Models;
 
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    use HasFactory;
+    use HasFactory, Sluggable;
+
+    protected $fillable = [
+        'title',
+        'slug',
+        'excerpt',
+        'category_id',
+        'body',
+        'creator_id',
+        'published_at',
+    ];
 
     /**
      * Retrieves the category that this object belongs to.
      *
      * @return BelongsTo A relationship instance.
      */
-    public function category(){
+    public function category()
+    {
         return $this->belongsTo(Category::class);
     }
 
     // 
-    public function creator(){
+    public function creator()
+    {
         return $this->belongsTo(User::class, 'creator_id');
     }
-    
-    public function tags(){
+
+    public function tags()
+    {
         return $this->hasMany(PostTag::class, 'post_id', 'id');
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'post_id', 'id');
+    }
+
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'title'
+            ]
+        ];
+    }
+
     /**
      * A description of the entire PHP function.
      *
      * @param $query The query object.
      * @return The query object sorted by 'views' in descending order.
      */
-    public function scopeMostviewed($query){
+    public function scopeMostviewed($query)
+    {
         return $query->orderBy('views', 'desc');
     }
 
@@ -41,13 +71,36 @@ class Post extends Model
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeInformation(){
-        return $this->with('category')->whereHas('category', function($query){
-            $query->where('name', 'information');
+    public function scopeCategory($query, string $category)
+    {
+        return $query->whereHas('category', function ($query) use ($category) {
+            $query->where('slug', $category);
         });
     }
 
-    public function scopeImages($query){
-        return $query->select(['id', 'image'])->orderBy('id', 'desc')->get();
+    public function scopeSearch($query, string $searchQuery)
+    {
+        return $query->where(function ($query) use ($searchQuery) {
+            $query->where('title', 'like', '%' . $searchQuery . '%')
+                ->orWhere('body', 'like', '%' . $searchQuery . '%');
+        });
+    }
+
+    public function scopeStatus($query, string $status)
+    {
+        return $query->where('status', $status);
+    }
+
+    public function scopePublished($query)
+    {
+        return $query->where('published_at', '<=', now())
+            ->where('status', 'PUBLISHED')
+            ->where('accepted', 1)
+            ->orderBy('published_at', 'desc');
+    }
+
+    public function scopeAccepted($query)
+    {
+        return $query->where('accepted', true);
     }
 }
