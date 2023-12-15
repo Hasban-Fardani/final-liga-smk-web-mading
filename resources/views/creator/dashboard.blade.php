@@ -4,6 +4,11 @@
     <div class="px-6 py-3" id="content">
         <h2 class="text-3xl font-medium">Dashboard</h2>
         <div class="border-t-2 border-gray-300 mb-6"></div>
+
+        {{-- card    --}}
+        <div>
+            <div></div>
+        </div>
         <canvas id="chart"></canvas>
     </div>
 @endsection

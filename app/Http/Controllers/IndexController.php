@@ -29,6 +29,7 @@ class IndexController extends Controller
             ->category('pengumuman')
             ->published()
             ->limit(5)
+            ->orderBy('views', 'desc')
             ->get();
 
         if ($request->input('search')) {

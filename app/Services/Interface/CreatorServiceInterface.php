@@ -2,7 +2,9 @@
 
 namespace App\Services\Interface;
 
+use App\Models\Post;
+
 interface CreatorServiceInterface
 {
-    public function createPost(array $data);
+    public function request(Post $post);
 }

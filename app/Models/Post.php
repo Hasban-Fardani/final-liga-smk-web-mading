@@ -5,10 +5,14 @@ namespace App\Models;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Post extends Model
 {
     use HasFactory, Sluggable;
+
+    // 17 + 3 = 20
+    const EXCERPT_LENGHT = 17;
 
     protected $fillable = [
         'title',
@@ -20,6 +24,11 @@ class Post extends Model
         'published_at',
     ];
 
+    public function excerpt(){
+        // default ends: ...
+        // return 20 characters of body
+        return Str::limit($this->body, self::EXCERPT_LENGHT);
+    }
     /**
      * Retrieves the category that this object belongs to.
      *

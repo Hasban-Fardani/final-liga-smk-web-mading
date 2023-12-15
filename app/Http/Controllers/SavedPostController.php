@@ -8,7 +8,7 @@ class SavedPostController extends Controller
 {
     //
     public function index(){
-
+        return view('posts.saved');
     }
 
     public function store(){

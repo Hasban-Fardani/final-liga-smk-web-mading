@@ -15,9 +15,9 @@
                     <tr>
                         <th>Image</th>
                         <th>Title</th>
-                        <th>Slug</th>
                         <th>Views</th>
                         <th>Status</th>
+                        <th>Created At</th>
                         <th>Published At</th>
                         <th>Action</th>
                     </tr>
@@ -28,7 +28,6 @@
                             <td><img src="{{ $post->image }}" alt="{{ $post->title }}" width="150" height="150"
                                     class="object-cover"></td>
                             <td>{{ $post->title }}</td>
-                            <td>{{ $post->slug }}</td>
                             <td>{{ $post->views }}</td>
                             <td>
                                 {{ $post->status }}
@@ -36,16 +35,37 @@
                                     @if ($post->status == 'PENDING')
                                         <form action="{{ route('admin.publish', $post->id) }}" method="post">
                                             @csrf
-                                            <button type="submit" class="text-sm hover:font-semibold underline">publish</button>
+                                            <button type="submit"
+                                                class="text-sm hover:font-semibold underline">publish</button>
+                                        </form>
+                                    @endif
+                                @endcan
+                                @can('creator')
+                                    @if ($post->status == 'DRAFT')
+                                        <form action="{{ route('creator.request.admin', $post->id) }}" method="post">
+                                            @csrf
+                                            <button type="submit"
+                                                class="text-sm hover:font-semibold underline">publish</button>
                                         </form>
                                     @endif
                                 @endcan
 
                             </td>
+                            <td>{{ $post->created_at }}</td>
                             <td>{{ $post->published_at }}</td>
                             <td>
-                                <button><a href="{{ route('posts.edit', $post->id) }}"><i
-                                            class="fa-solid fa-pen-to-square"></i></a></button>
+                                <div class="flex gap-2 justify-center">
+                                    <a href="{{ route('posts.edit', $post->id) }}">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </a>
+                                    <form action="{{ route('posts.destroy', $post->id) }}" method="POST" onsubmit="confirmDelete()">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                     @endforeach
@@ -54,3 +74,15 @@
         </div>
     </div>
 @endsection
+
+@push('js')
+    <script>
+        // funtion to confirm send form requests delete
+        function confirmDelete() {
+            let answer = confirm('Are you sure you want to delete this post?');
+            if (!answer) {
+                event.preventDefault();
+            }
+        }
+    </script>
+@endpush

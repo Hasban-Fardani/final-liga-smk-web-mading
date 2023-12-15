@@ -2,16 +2,20 @@
 
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\AdminPublishPostController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\auth\LoginController;
 use App\Http\Controllers\auth\LogoutController;
 use App\Http\Controllers\CreatorDashboardController;
+use App\Http\Controllers\CreatorPublishPostController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostPublishController;
 use App\Http\Controllers\PostSlugController;
 use App\Http\Controllers\ReadPostController;
 use App\Http\Controllers\SavedPostController;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\UploadImageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,11 +30,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', IndexController::class)->name('index');
-Route::get('/about', AboutController::class)->name('about');
+Route::get('/search', SearchController::class)->name('search');
 Route::post('/login', LoginController::class)->name('login');
 
 // Public routes
-Route::get('/post/{post:slug}', ReadPostController::class)->name('posts.read');
+Route::get('/read/{post:slug}', ReadPostController::class)->name('posts.read');
 
 // Authenticated routes
 Route::middleware('auth')->group(function () {
@@ -38,9 +42,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/saved', [SavedPostController::class, 'index'])->name('posts.saved');
     Route::post('/saved', [SavedPostController::class, 'store'])->name('posts.saved.store');
 
+    Route::post('/upload', UploadImageController::class)->name('upload.image');
+
     // Creator routes
     Route::middleware('can:creator')->group(function () {
         Route::get('/creator', CreatorDashboardController::class)->name('creator.dashboard');
+        Route::post('/creator/request/{post}', CreatorPublishPostController::class)->name('creator.request.admin');
     });
 
     // Post routes
@@ -51,7 +58,7 @@ Route::middleware('auth')->group(function () {
 
     // Admin routes
     Route::middleware('can:admin')->group(function () {
-        Route::post('/admin/publish/{post}', PostPublishController::class)->name('admin.publish');
+        Route::post('/admin/publish/{post}', AdminPublishPostController::class)->name('admin.publish');
 
         Route::get('/admin', AdminDashboardController::class)->name('admin.dashboard');
         Route::get('/admin/users', [AdminUserController::class, 'index'])->name('admin.users');

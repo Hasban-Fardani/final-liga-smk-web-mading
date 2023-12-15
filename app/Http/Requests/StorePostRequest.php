@@ -24,12 +24,12 @@ class StorePostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'image' => ['required', 'image'],
+            'image' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
             'title' => ['required', 'string', 'max:255'],
             'body' => ['required', 'string'],
             'category_id' => ['required', 'exists:categories,id'],
             'slug' => ['required', 'string', 'max:255', 'unique:posts'],
-            'excerpt' => ['required', 'string', 'max:255'],
+            'excerpt' => ['nullable', 'max:255'],
             'published_at' => ['date'],
         ];
     }

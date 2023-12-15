@@ -9,4 +9,6 @@ use Illuminate\Http\Request;
 interface UserServiceInterface {
     public function login(LoginRequest $request);
     public function readPost(Request $request, Post $post);
+    public function savePost(Request $request, Post $post);
+    public function getSavedPosts(User $user);
 }

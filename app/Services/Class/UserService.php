@@ -3,6 +3,7 @@ namespace App\Services\Class;
 
 use App\Http\Requests\LoginRequest;
 use App\Models\Post;
+use App\Models\User;
 use App\Models\Visitor;
 use App\Services\Interface\UserServiceInterface;
 use Illuminate\Http\Request;
@@ -39,5 +40,14 @@ class UserService implements UserServiceInterface {
         $visitor->slug = $post->slug;
         $visitor->save();
         return $post;
+    }
+
+    public function savePost(Request $request, Post $post){
+        
+    }
+
+    public function getSavedPosts(User $user)
+    {
+        
     }
 }

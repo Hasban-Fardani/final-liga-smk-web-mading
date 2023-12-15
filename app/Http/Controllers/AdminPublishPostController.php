@@ -6,7 +6,7 @@ use App\Models\Post;
 use App\Services\Class\AdminService;
 use Illuminate\Http\Request;
 
-class PostPublishController extends Controller
+class AdminPublishPostController extends Controller
 {
     //
     public function __invoke(AdminService $adminService, Post $post)

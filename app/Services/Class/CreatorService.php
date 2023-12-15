@@ -6,8 +6,10 @@ use App\Services\Interface\CreatorServiceInterface;
 
 class CreatorService implements CreatorServiceInterface
 {
-    public function createPost(array $data)
+
+    public function request(Post $post)
     {
-        return Post::create($data);
+        $post->status = 'PENDING';
+        $post->save();
     }
 }

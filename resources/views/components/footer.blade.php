@@ -3,11 +3,15 @@
     <div class="container">
         <div class="flex justify-between">
             <div>
-                <p class="text-sm">Copyright © 2022. All rights reserved.</p>
+                About
+                <p class="text-sm">
+                    Majalah digital sebelas adalah aplikasi sistem informasi berbasis web yang diperuntukkan khusus untuk warga SMKN 11 Bandung.
+                </p>
             </div>
             <div>
-                <p class="text-sm">Powered by Laravel</p>
+                <p class="text-sm"></p>
             </div>
         </div>
     </div>
+    <p class="text-sm text-center pb-3">Copyright © 2023, Hasban Fardani</p>
 </div>

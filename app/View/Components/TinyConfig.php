@@ -6,12 +6,12 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class SliderV2 extends Component
+class TinyConfig extends Component
 {
     /**
      * Create a new component instance.
      */
-    public function __construct(public $posts = [])
+    public function __construct()
     {
         //
     }
@@ -21,8 +21,6 @@ class SliderV2 extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.slider-v2', [
-            'posts' => $this->posts
-        ]);
+        return view('components.tiny-config');
     }
 }

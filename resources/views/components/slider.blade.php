@@ -114,6 +114,7 @@
         indicator.forEach((item, i) => {
             item.addEventListener('click', () => {
                 index = i;
+                updateSlider()
             })
         })
     </script>

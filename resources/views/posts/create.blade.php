@@ -38,7 +38,7 @@
 
             {{-- excerpt --}}
             <div class="flex flex-col">
-                <label for="excerpt">Excerpt</label>
+                <label for="excerpt">Excerpt <span class="text-xs">(optional)</span></label>
                 <input name="excerpt" id="excerpt" cols="30" rows="10" class="border text-lg px-2 py-1 rounded-md">
             </div>
 
@@ -48,8 +48,8 @@
                 <input type="datetime-local" name="published_at" id="published_at" class="border text-lg px-2 py-1 rounded-md">
             </div>
 
-            <input id="body" type="hidden" name="body">
-            <trix-editor input="body"></trix-editor>
+            <textarea id="tinymce" name="body"></textarea>
+            
 
             <button type="submit" class="bg-blue-500 text-white px-4 py-1 rounded-md hover:bg-blue-700">Create</button>
         </form>
@@ -70,4 +70,10 @@
                 .then(data => slug.value = data.slug)
         })
     </script>
+@endpush
+@push('headjs')
+    <x-tiny-head/>
+@endpush
+@push('js')
+    <x-tiny-config/>
 @endpush

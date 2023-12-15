@@ -1,7 +1,7 @@
 <!-- The only way to do great work is to love what you do. - Steve Jobs -->
 @extends('layout.admin')
 @section('content')
-    <div class="px-6 py-3">
+    <div class="px-6 py-3 w-full">
         <h2 class="text-3xl font-medium">Users</h2>
         <div class="border-t-2 border-gray-300 mb-6"></div>
 

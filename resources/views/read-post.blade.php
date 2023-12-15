@@ -6,17 +6,16 @@
     <div class="mt-6">
         <p class="text-lg">{{ $post->creator->username }} - {{ $post->created_at->diffForHumans() }}</p>
         <h1 class="text-3xl font-bold">{{ $post->title }}</h1>
-        <p>Kategori: {{ $post->category->name }}</p>
-        <div>
+        <div class="flex gap-2">
             @foreach ($post->tags as $tag)
                 <x-tag :name="$tag->tag->name" />
-                {{-- <span class="text-sm">{{ $tag->tag->name }}</span> --}}
             @endforeach
         </div>
     </div>
     <p class="mt-4">
         {!! $post->body !!}
     </p>
+    <p>Kategori: {{ $post->category->name }}</p>
 </div>
 
 @endsection

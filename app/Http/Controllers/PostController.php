@@ -45,23 +45,14 @@ class PostController extends Controller
         $this->postService->create($request);
         return redirect()->route('posts.index')->with('success', 'Post created successfully');
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Post $post)
-    {
-        //
-        return redirect()->route('posts.read', [$post->slug]);
-    }
-
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(Post $post)
     {
         //
-        return view('posts.edit', compact('post'));
+        $categories = Category::all();
+        return view('posts.edit', compact(['post', 'categories']));
     }
 
     /**

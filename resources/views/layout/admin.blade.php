@@ -21,26 +21,31 @@
     {{-- Vite --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+    {{-- chart js --}}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     {{-- custom css --}}
     @stack('css')
+
+    @stack('headjs')
 </head>
 
 <body class="md:min-h-screen flex flex-col relative">
     <header>
-        <nav class="bg-gray-800 w-full flex justify-between items-center px-6 md:px-12 lg:px-16 py-4 relative">
-            <form action="" method="GET" class="hidden lg:block">
-                <input type="text" name="search" id="search" value="{{ request('search') }}"
-                    class="rounded-md text-lg px-2 w-[80%]">
-                <button type="submit"><i class="fa-solid fa-magnifying-glass p-1 text-white"></i></button>
-            </form>
-            <h1 class="text-2xl text-white font-bold">MADIG
+        <nav class="bg-gray-800 w-full flex justify-between items-center px-6 md:px-12 lg:px-6 py-4 relative">
+            <h1 class="text-2xl text-white font-bold ">
+                {{-- <i class="fa-solid fa-house"></i> --}}
+                MADIG
                 {{ auth()->user()->permission == 'admin' ? 'ADMIN' : 'CREATOR' }}</h1>
-            <form action="{{ route('logout') }}" method="POST" class="hidden md:block">
-                @csrf
-                <button type="submit"
-                    class="bg-red-600 hover:bg-red-700 text-white rounded-md py-1 px-3">Logout</button>
-            </form>
-
+                
+                <div class="text-md text-white items-center gap-3 hidden lg:flex">
+                    <p class="flex">
+                        <span>@</span> {{ auth()->user()->username }}
+                    </p>
+                    <div class="bg-gray-200 rounded-full h-8 w-8 flex items-center justify-center">
+                        <img src="{{ auth()->user()->avatar }}" alt="Avatar" class="rounded-full h-full w-full">
+                    </div>
+                </div>
             <button id="humburger" name="humburger" type="button" class="block absolute right-6 md:right-12 md:hidden">
                 <span class="humburger-line transition duration-300 ease-in-out origin-top-left"></span>
                 <span class="humburger-line transition duration-300 ease-in-out"></span>
@@ -48,14 +53,22 @@
             </button>
 
             <div id="nav-menu"
-                class="hidden absolute p-5 bg-white shadow-lg rounded-lg max-w-[150px] w-1/3 right-12 transition-all duration-200 top-full">
-                <div class="flex flex-col gap-2 px-6 py-3">
+                class="hidden absolute bg-white shadow-lg rounded-lg max-w-[150px] w-1/3 right-12 transition-all duration-200 top-full">
+                <div class="flex flex-col gap-3 px-6 py-3 lg:hidden">
+                    <a href="{{ route('index') }}"
+                        class="hover:text-gray-800 hover:bg-white w-full flex gap-2 items-center"><i
+                            class="fa-solid fa-house"></i>Home</a>
+
                     <a href="{{ auth()->user()->permission == 'admin' ? route('admin.dashboard') : route('creator.dashboard') }}"
-                        class="px-3 hover:text-gray-800 hover:bg-white">Dashboard</a>
-                <a href="{{ route('posts.index') }}"
-                        class="px-3 hover:text-gray-800 hover:bg-white">Posts</a>
+                        class="hover:text-gray-800 hover:bg-white w-full flex gap-2 items-center"><i
+                            class="fa-solid fa-chart-line w-4"></i>Dashboard</a>
+                    <a href="{{ route('posts.index') }}"
+                        class="hover:text-gray-800 hover:bg-white w-full flex gap-2 items-center"><i
+                            class="fa-solid fa-newspaper w-4"></i>Posts</a>
                     @can('admin')
-                        <a href="{{ route('admin.users') }}" class="px-3 hover:text-gray-800 hover:bg-white">User</a>
+                        <a href="{{ route('admin.users') }}"
+                            class="hover:text-gray-800 hover:bg-white w-full flex gap-2 items-center"> <i
+                                class="fa-solid fa-user w-4"></i>User</a>
                     @endcan
                     <form action="{{ route('logout') }}" method="POST" class="md:hidden">
                         @csrf
@@ -84,16 +97,36 @@
     @endif
 
 
-    <main class="flex md:flex-grow w-full overflow-x-auto">
-        <aside class="bg-gray-800 text-white hidden md:flex flex-col w-1/6 min-w-[120px] ">
-            <div class="flex flex-col gap-2 px-6 py-3">
+    <main class="flex md:flex-grow w-full overflow-x-auto overflow-y-hidden">
+        <aside class="bg-gray-800 text-white hidden md:flex flex-col w-[12%] min-w-[150px] h-screen justify-between">
+            <div class="flex flex-col">
+                <a href="{{ route('index') }}"
+                    class="px-6 py-3 hover:text-gray-800 hover:bg-white w-full flex gap-2 items-center">
+                    <i class="fa-solid fa-house"></i>Home
+                </a>
+
                 <a href="{{ auth()->user()->permission == 'admin' ? route('admin.dashboard') : route('creator.dashboard') }}"
-                    class="px-3 hover:text-gray-800 hover:bg-white">Dashboard</a>
+                    class="px-6 py-3 hover:text-gray-800 hover:bg-white w-full flex gap-2 items-center {{ request()->routeIs('admin.dashboard') ? 'bg-white text-gray-800' : ''}}">
+                    <i class="fa-solid fa-chart-line w-4"></i>Dashboard
+                </a>
                 <a href="{{ route('posts.index') }}"
-                    class="px-3 hover:text-gray-800 hover:bg-white">Posts</a>
+                    class="px-6 py-3 hover:text-gray-800 hover:bg-white w-full flex gap-2 items-center {{ request()->routeIs('posts.index') ? 'bg-white text-gray-800' : ''}}">
+                    <i class="fa-solid fa-newspaper w-4"></i>Posts
+                </a>
                 @can('admin')
-                    <a href="{{ route('admin.users') }}" class="px-3 hover:text-gray-800 hover:bg-white">User</a>
+                    <a href="{{ route('admin.users') }}"
+                        class="px-6 py-3 hover:text-gray-800 hover:bg-white w-full flex gap-2 items-center {{ request()->routeIs('admin.users') ? 'bg-white text-gray-800' : ''}}">
+                        <i class="fa-solid fa-user w-4"></i>Users
+                    </a>
                 @endcan
+                <form action="{{ route('logout') }}" method="POST" >
+                    @csrf
+                    
+                    <button type="submit" class="px-6 py-3 hover:text-gray-800 hover:bg-white w-full flex gap-2 items-center">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        Logout
+                    </button>
+                </form>
             </div>
         </aside>
         {{-- {{ auth()->user()->details()}} --}}
@@ -128,6 +161,14 @@
         humburger.addEventListener('click', () => {
             humburger.classList.toggle('humburger-active');
             navMenu.classList.toggle('hidden');
+        })
+
+        // close nav menu when click outside
+        window.addEventListener('click', (e) => {
+            if (e.target.id !== 'humburger' && e.target.id !== 'nav-menu') {
+                navMenu.classList.add('hidden');
+                humburger.classList.remove('humburger-active');
+            }
         })
     </script>
 
