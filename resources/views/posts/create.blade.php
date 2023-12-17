@@ -43,13 +43,6 @@
                 <input type="file" name="image" id="image" class="border text-lg px-2 py-1 rounded-md">
             </div>
 
-            {{-- excerpt --}}
-            <div class="flex flex-col">
-                <label for="excerpt">Excerpt <span class="text-xs">(optional)</span></label>
-                <input name="excerpt" id="excerpt" cols="30" rows="10"
-                    class="border text-lg px-2 py-1 rounded-md">
-            </div>
-
             {{-- published --}}
             <div class="flex flex-col">
                 <label for="published">Publish</label>

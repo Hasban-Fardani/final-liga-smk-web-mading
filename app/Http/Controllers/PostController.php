@@ -6,6 +6,8 @@ use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\PostTag;
+use App\Models\Tag;
 use App\Services\Class\PostService;
 use Illuminate\Http\Request;
 
@@ -20,7 +22,7 @@ class PostController extends Controller
     {
         //
         $posts = $this->postService->getByCreator(auth()->user()->username);
-        if (auth()->user()->role->permission === 'admin') {
+        if (auth()->user()->permission === 'admin') {
             $posts = $this->postService->getAll();
         } 
         return view('posts.index', compact('posts'));
@@ -52,7 +54,13 @@ class PostController extends Controller
     {
         //
         $categories = Category::all();
-        return view('posts.edit', compact(['post', 'categories']));
+        $tag_id = PostTag::where('post_id', $post->id)->pluck('tag_id')->toArray();
+        $tags = Tag::whereIn('id', $tag_id)->get();
+        foreach ($tags as $tag) {
+            PostTag::where('post_id', $post->id)->where('tag_id', $tag->id)->delete();
+        }
+
+        return view('posts.edit', compact(['post', 'categories', 'tags']));
     }
 
     /**

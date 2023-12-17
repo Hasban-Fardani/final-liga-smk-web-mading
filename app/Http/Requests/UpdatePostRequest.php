@@ -25,6 +25,7 @@ class UpdatePostRequest extends FormRequest
             'title' => 'required|string|max:255',
             'body' => 'required|string',
             'published_at' => 'nullable|date',
+            'tags' => [],
             'category_id' => 'exists:categories,id',
         ];
     }

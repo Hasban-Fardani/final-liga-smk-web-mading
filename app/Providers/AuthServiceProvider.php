@@ -41,7 +41,7 @@ class AuthServiceProvider extends ServiceProvider
          });
 
         Gate::define('edit-post', function (User $user, Post $post) {
-            return $user->id == $post->user_id && ($user->permission == 'admin' || $user->permission == 'creator');
+            return $user->id == $post->creator_id && ($user->permission == 'admin' || $user->permission == 'creator');
         });
     }
 }

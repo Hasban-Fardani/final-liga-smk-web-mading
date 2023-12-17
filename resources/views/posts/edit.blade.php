@@ -31,6 +31,12 @@
                 </select>
             </div>
 
+             {{-- tags --}}
+             <div class="flex flex-col">
+                <label for="tags">Tags (separated by comma ,)</label>
+                <input type="text" id="tags" class="border text-lg px-2 py-1 rounded-md" name="tags" value="{{ $tags->implode('name', ', ') }}">
+            </div>
+
             {{-- image --}}
             <div class="flex flex-col">
                 <label for="image">Image</label>
@@ -40,12 +46,7 @@
                 </div>
             </div>
 
-            {{-- excerpt --}}
-            <div class="flex flex-col">
-                <label for="excerpt">Excerpt <span class="text-xs">(optional)</span></label>
-                <input name="excerpt" id="excerpt" cols="30" rows="10" class="border text-lg px-2 py-1 rounded-md">
-            </div>
-
+           
             {{-- published time --}}
             <div class="flex flex-col">
                 <label for="published_at">Published At</label>

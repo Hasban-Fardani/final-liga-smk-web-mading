@@ -4,18 +4,19 @@ namespace App\Services\Class;
 
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use App\Models\Comment;
 use App\Models\Post;
+use App\Models\PostTag;
 use App\Models\Tag;
 use App\Services\Interface\PostServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection as SupportCollection;
-use Illuminate\Support\Facades\DB;
 
 class PostService implements PostServiceInterface
 {
     public function getAll()
     {
-        return Post::all();
+        return Post::orderBy('updated_at', 'desc')->get();
     }
     public function getAllPublished($columns=['*'], $limit = null)
     {
@@ -121,11 +122,24 @@ class PostService implements PostServiceInterface
     public function update(Request $request, Post $post)
     {
         $data = $request->validated();
+        $tags=explode(',', $data['tags']);
+        foreach ($tags as $tag) {
+            if (Tag::where('name', $tag)->exists()) {
+                $tag = Tag::where('name', $tag)->first();
+            } else {
+                $tag = Tag::create(['name' => $tag]);
+            }
+            $post->tags()->create(['tag_id' => $tag->id, 'post_id' => $post->id]);
+        }
+
+        $post->save();
         return $post->update($data);
     }
 
     public function delete(Post $post)
     {
+        PostTag::where('post_id', $post->id)->delete();
+        Comment::where('post_id', $post->id)->delete();
         return $post->delete();
     }
 }
