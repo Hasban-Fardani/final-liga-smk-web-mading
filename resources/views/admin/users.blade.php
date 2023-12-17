@@ -15,7 +15,6 @@
                         <th>Role</th>
                         <th>Type</th>
                         <th>Permission</th>
-                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -27,9 +26,6 @@
                         <td>{{ $user->role->name }}</td>
                         <td>{{ $user->type }}</td>
                         <td>{{ $user->permission }}</td>
-                        <td>
-                            <button>an action</button>
-                        </td>
                     </tr>
                     @endforeach
                 </tbody>

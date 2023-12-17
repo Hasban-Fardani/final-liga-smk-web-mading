@@ -24,7 +24,7 @@ class AdminDashboardController extends Controller
         $visitors            = $adminService->getVisitorsPerDayOfMonth($month, $year);
         $visitors_categories = $adminService->getVisitorsPerCategory();
 
-        $visitors_table      = Visitor::all();
+        $visitors_table      = Visitor::orderBy('visited_at', 'desc')->get();
 
         // dd($visitors_categories);
         return view('admin.dashboard', compact([

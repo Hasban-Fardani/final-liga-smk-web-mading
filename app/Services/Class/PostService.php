@@ -4,41 +4,48 @@ namespace App\Services\Class;
 
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
-use App\Models\Category;
 use App\Models\Post;
-use App\Models\User;
+use App\Models\Tag;
 use App\Services\Interface\PostServiceInterface;
-use Nette\Utils\Strings;
+use Illuminate\Http\Request;
+use Illuminate\Support\Collection as SupportCollection;
+use Illuminate\Support\Facades\DB;
 
 class PostService implements PostServiceInterface
 {
     public function getAll()
     {
-        // get all post orderby created_at
-        return Post::orderBy('created_at', 'desc')
-            ->with(['category', 'creator', 'tags', 'comments'])
-            ->get();
+        return Post::all();
     }
-
-    public function getAllPublished()
+    public function getAllPublished($columns=['*'], $limit = null)
     {
         // get all published posts
-        return Post::with(['category', 'creator', 'tags', 'comments'])
+        $posts = Post::with(['category', 'creator', 'tags', 'comments'])
             ->published()
-            ->get();
-    }
+            ->orderBy('published_at', 'desc')
+            ->get($columns);
 
-    public function getByCategory(string $categorySlug)
+        if ($limit) {
+            return $posts->take($limit);
+        }
+        return $posts;
+    }
+        
+    public function getByCategory(string $categorySlug, $limit = null)
     {
-        return Post::with(['category', 'creator', 'tags', 'comments'])
+        $post = Post::with(['category', 'creator', 'tags', 'comments'])
             ->whereHas('category', function ($query) use ($categorySlug) {
                 $query->where('slug', $categorySlug);
             })
-            ->published()
-            ->paginate();
+            ->orderBy('created_at', 'desc');
+        
+        if ($limit) {
+            return $post->take($limit)->get();
+        }
+        return $post->get();
     }
 
-    public function getByCreator(string $creatorUsername, bool $published = false)
+    public function getByCreator(string $creatorUsername, bool $published = false, $columns = ['*'])
     {
         $post = Post::with(['category', 'creator', 'tags', 'comments'])
             ->whereHas('creator', function ($query) use ($creatorUsername) {
@@ -46,15 +53,23 @@ class PostService implements PostServiceInterface
             })
             ->orderBy('created_at', 'desc');
         if ($published) {
-            $post->published();
+            $post->where('published_at', '<=', now());
         }
-        return $post->get();
+        return $post->get($columns);
     }
-    public function search(string $query)
+    public function search($query, $columns = ['*']) : SupportCollection
     {
-        return  Post::with(['category', 'creator', 'tags', 'comments'])
+        if (!$query) {
+            return collect($this->getAllPublished($columns));
+        }
+        $posts = collect(Post::with(['category', 'creator', 'tags', 'comments'])
             ->search($query)
-            ->get();
+            ->where('published_at', '<=', now())
+            ->where('status', 'PUBLISHED')
+            ->where('accepted', true)
+            ->get($columns));
+            dd(DB::getQueryLog());
+        return $posts;
     }
 
     public function create(StorePostRequest $request)
@@ -66,7 +81,7 @@ class PostService implements PostServiceInterface
         $post->category_id = $data['category_id'];
         $post->creator_id = auth()->user()->id;
         $post->slug = $data['slug'];
-        $post->excerpt = $data['excerpt'] ? $data['excerpt'] : $post->excerpt();
+        $post->excerpt = $data['excerpt'] ? $data['excerpt'] : $post->createExcerpt();
 
         // set base dir
         $baseDir = '/images/posts/';
@@ -74,15 +89,37 @@ class PostService implements PostServiceInterface
         $request->file('image')->move(public_path($baseDir), $request->file('image')->getClientOriginalName());
 
         // check admin
-        if (auth()->user()->role->permission === 'admin') {
+        if (auth()->user()->permission === 'admin') {
             $post->accepted = true;
+        }
+
+        if ($data['publish'] == 'now') {
+            $post->published_at = now();
+            $post->status = "PUBLISHED";
+        } else {
+            if (isset($data['published_at'])) {
+                $post->published_at = $data['published_at'];
+            }
+        }
+        
+
+        $post->save();
+
+        $tags=explode(',', $data['tags']);
+        foreach ($tags as $tag) {
+            if (Tag::where('name', $tag)->exists()) {
+                $tag = Tag::where('name', $tag)->first();
+            } else {
+                $tag = Tag::create(['name' => $tag]);
+            }
+            $post->tags()->create(['tag_id' => $tag->id, 'post_id' => $post->id]);
         }
 
         $post->save();
         return $post;
     }
 
-    public function update(UpdatePostRequest $request, Post $post)
+    public function update(Request $request, Post $post)
     {
         $data = $request->validated();
         return $post->update($data);

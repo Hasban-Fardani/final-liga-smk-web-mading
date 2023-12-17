@@ -4,7 +4,8 @@
     <div class="px-6 pt-3 pb-20 w-full">
         <div class="flex">
             <h2 class="text-3xl font-medium">Dashboard</h2>
-            <button class="bg-blue-500 text-sm text-white px-4 py-1 ml-6 rounded-md hover:bg-blue-700" onclick="exportToPDF()">
+            <button class="bg-blue-500 text-sm text-white px-4 py-1 ml-6 rounded-md hover:bg-blue-700"
+                onclick="exportToPDF()">
                 PDF
             </button>
         </div>
@@ -74,7 +75,7 @@
                         <th>No</th>
                         <th>User</th>
                         <th>Waktu</th>
-                        <th>IP Address</th>
+                        <th>Slug</th>
                         <th>Browser</th>
                         {{-- <th>Platform</th> --}}
                     </tr>
@@ -87,11 +88,11 @@
                                 @if ($visitor->user)
                                     {{ $visitor->user->username }}
                                 @else
-                                   -
+                                    -
                                 @endif
                             </td>
                             <td>{{ $visitor->visited_at }}</td>
-                            <td>{{ $visitor->ip_address }}</td>
+                            <td>{{ $visitor->slug }}</td>
                             <td>{{ $visitor->user_agent }}</td>
                             {{-- <td>{{ $visitor->platform }}</td> --}}
                         </tr>
@@ -107,6 +108,7 @@
 
 @push('js')
     <script>
+
         var statistik_pengunjung = document.getElementById('statistik_pengunjung').getContext('2d');
 
         const lastDay = new Date(new Date().getFullYear(), {{ $month }}, 0).getDate();
@@ -158,6 +160,7 @@
 
 
         const content = document.getElementById("content");
+
         function exportToPDF() {
             const opt = {
                 margin: 0,

@@ -11,6 +11,7 @@ class Visitor extends Model
 
     protected $fillable = [
         'ip_address',
+        'slug',
         'user_agent',
         'user_id',
         'post_id',

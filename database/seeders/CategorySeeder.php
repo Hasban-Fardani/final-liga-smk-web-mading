@@ -16,25 +16,25 @@ class CategorySeeder extends Seeder
         //
         Category::create([
             'name' => 'Pengumuman',
-            'priority' => 1,
+            'color' => 'primary',
             'slug' => 'pengumuman',
         ]);
 
         Category::create([
             'name' => 'Prestasi',
-            'priority' => 2,
+            'color' => 'secondary',
             'slug' => 'prestasi',
         ]);
 
         Category::create([
             'name' => 'Buletin',
-            'priority' => 2,
+            'color' => 'secodary',
             'slug' => 'Buletin',
         ]);
 
         Category::create([
             'name' => 'artikel',
-            'priority' => 3,
+            'color' => 'other',
             'slug' => 'artikel',
         ]);
     }

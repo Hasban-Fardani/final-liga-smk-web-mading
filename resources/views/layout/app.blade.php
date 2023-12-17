@@ -19,7 +19,7 @@
     @stack('css')
 </head>
 
-<body class="min-h-screen relative overflow-x-hidden">
+<body class="min-h-screen relative overflow-x-hidden flex flex-col">
     <header>
         <nav
             class="bg-blue-500 w-full flex justify-between items-center px-6 md:px-12 lg:px-16 py-3 shadow-md relative z-10">
@@ -92,7 +92,6 @@
                 </ul>
             </div>
         </nav>
-        <x-login-modal />
     </header>
     @if ($errors->any())
         <x-alert :message="$errors->all()[0]" type="error" />
@@ -100,8 +99,8 @@
 
     @if ($m = session('error'))
         <x-alert :message="$m" type="error" />
-    @endif
-
+        @endif
+        
     @if ($m = session('success'))
         <x-alert :message="$m" type="success" />
     @endif
@@ -109,12 +108,71 @@
     @if ($m = session('info'))
         <x-alert :message="$m" type="info" />
     @endif
-    <main>
+    <main class="flex-grow">
         @yield('content')
     </main>
     <footer class="mt-12">
-        <x-footer></x-footer>
+        <!-- It is not the man who has too little, but the man who craves more, that is poor. - Seneca -->
+        <div class="bg-slate-800 text-white p-6">
+            <div class="flex justify-between items-center w-full">
+                <h2>MADIG SEBELAS</h2>
+                <p class="text-sm text-center">Copyright © 2023, Hasban Fardani</p>
+                <ul class="flex gap-2">
+                    <li><a href="{{ route('index') }}">Home</a></li>
+                    <li><a href="{{ route('search') }}">Search</a></li>
+                    <li><a href="{{ route('posts.saved') }}">Saved</a></li>
+                </ul>
+            </div>
+
+        </div>
     </footer>
+    <!-- An unexamined life is not worth living. - Socrates -->
+    <dialog id="login_modal" class="p-5 rounded-md">
+        <div class="w-full md:w-72 lg:w-96 h-[400px]">
+            <h2 class="text-center text-xl font-semibold">Login To Your Account</h2>
+            <form action="{{ route('login') }}" method="POST" class="flex flex-col gap-6 mt-6">
+                @csrf
+                <div class="flex flex-col">
+                    <label for="identity" id="identity_label">Email</label>
+                    <input type="text" name="identity" id="identity" class="border text-lg px-2 py-1 rounded-md"
+                        required>
+                </div>
+                <div class="flex flex-col">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" class="border text-lg px-2 py-1 rounded-md"
+                        required>
+                </div>
+                <div class="text-center">
+                    <div class="border-b mb-2"></div>
+                    <p>Login With</p>
+                    <div class="flex gap-2 justify-center mt-2">
+                        <div>
+                            <input type="radio" value="email" name="type" id="type_email" class="type_login"
+                                checked>
+                            <label for="admin" class="text-sm">Email</label>
+                        </div>
+
+                        <div>
+                            <input type="radio" value="username" name="type" id="type_username"
+                                class="type_login">
+                            <label for="user" class="text-sm">Username</label>
+                        </div>
+
+                        <div>
+                            <input type="radio" value="ni" name="type" id="type_ni" class="type_login">
+                            <label for="user" class="text-sm">NIP/NIS</label>
+                        </div>
+
+                        <div>
+                        </div>
+
+                    </div>
+                    <br>
+                    <input type="submit" value="Login" class="btn">
+                </div>
+            </form>
+        </div>
+    </dialog>
 
     {{-- app script --}}
     <script src="{{ asset('assets/js/main.js') }}"></script>
@@ -139,6 +197,40 @@
         humburger.addEventListener('click', () => {
             humburger.classList.toggle('humburger-active');
             navMenu.classList.toggle('hidden');
+        })
+
+        
+        // Login
+        login_modal.addEventListener("click", (event) => {
+            const {
+                left,
+                right,
+                top,
+                bottom
+            } = login_modal.getBoundingClientRect();
+            const {
+                clientX,
+                clientY
+            } = event;
+
+            if (
+                clientX < left ||
+                clientX > right ||
+                clientY < top ||
+                clientY > bottom
+            ) {
+                login_modal.close();
+            }
+        });
+
+        const type = document.querySelectorAll('.type_login');
+        // add type evenlistener onchange
+        type.forEach((item) => {
+            item.addEventListener('change', () => {
+                if (item.checked) {
+                    identity_label.textContent = item.value.charAt(0).toUpperCase() + item.value.slice(1);
+                }
+            })
         })
     </script>
     @stack('js')

@@ -9,6 +9,10 @@ class PostTag extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'post_id',
+        'tag_id',
+    ];
     public function post(){
         return $this->belongsTo(Post::class);
     }

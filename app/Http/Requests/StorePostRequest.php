@@ -30,6 +30,8 @@ class StorePostRequest extends FormRequest
             'category_id' => ['required', 'exists:categories,id'],
             'slug' => ['required', 'string', 'max:255', 'unique:posts'],
             'excerpt' => ['nullable', 'max:255'],
+            'tags' => [],
+            'publish' => ['required', 'string', 'in:now,schedule'],
             'published_at' => ['date'],
         ];
     }

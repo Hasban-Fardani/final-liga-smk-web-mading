@@ -31,6 +31,10 @@
             </div>
 
             {{-- tags --}}
+            <div class="flex flex-col">
+                <label for="tags">Tags (separated by comma ,)</label>
+                <input type="text" id="tags" class="border text-lg px-2 py-1 rounded-md" name="tags">
+            </div>
 
 
             {{-- image --}}
@@ -46,11 +50,26 @@
                     class="border text-lg px-2 py-1 rounded-md">
             </div>
 
+            {{-- published --}}
+            <div class="flex flex-col">
+                <label for="published">Publish</label>
+                <div class="flex gap-4">
+                    <div>
+                        <input type="radio" value="now" name="publish" checked>
+                        <label>now</label>
+                    </div>
+                    <div>
+                        <input type="radio" value="schedule" name="publish">
+                        <label>schedule</label>
+                    </div>
+                </div>
+            </div>
+
             {{-- published time --}}
             <div class="flex flex-col">
                 <label for="published_at">Published At</label>
                 <input type="datetime-local" name="published_at" id="published_at"
-                    class="border text-lg px-2 py-1 rounded-md" value="{{ now() }}">
+                    class="border text-lg px-2 py-1 rounded-md" value="" disabled>
             </div>
 
             <textarea id="tinymce" name="body"></textarea>
@@ -71,41 +90,19 @@
                 .then(data => slug.value = data.slug)
         });
 
-        const input = document.getElementById('tags-input');
-        new Tagify(input, {
-            enforceWhitelist: true,
-            whitelist: [], // Daftar tag yang tersedia (kosong awalnya)
-            duplicates: false, // Mencegah duplikasi tag
-            createTagOnBlur: true, // Membuat tag baru saat input kehilangan fokus
-            dropdown: {
-                enabled: 1, // Menampilkan dropdown dengan saran tag
-                maxItems: 5 // Maksimum jumlah item dalam dropdown
-            },
-            callbacks: {
-                add: async function(e) {
-                    // Mengirim tag baru ke server jika tidak ada dalam daftar whitelist
-                    if (!this.settings.whitelist.includes(e.detail.value)) {
-                        const response = await fetch('/tags', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({
-                                tag: e.detail.value
-                            })
-                        });
-                        const data = await response.json();
-                        if (data.success) {
-                            // Menambahkan tag baru ke daftar whitelist
-                            this.settings.whitelist.push(e.detail.value);
-                        } else {
-                            // Menampilkan pesan error jika gagal menambahkan tag
-                            console.error('Gagal menambahkan tag:', data.error);
-                        }
-                    }
-                }
+        const published = document.querySelectorAll('input[name=publish]');
+        const published_at = document.querySelector('input[name=published_at]');
+        published.forEach(i => {
+            i.addEventListener('click', function() {
+            console.log(i.value, published_at);
+            if (i.value == 'now') {
+                published_at.setAttribute('disabled', true);
+            } else {
+                published_at.removeAttribute('disabled');
+                console.log('removing');
             }
-        });
+        })
+        })
     </script>
 @endpush
 @push('headjs')

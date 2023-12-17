@@ -16,6 +16,8 @@
                         <th>Image</th>
                         <th>Title</th>
                         <th>Views</th>
+                        <th>Category</th>
+                        <th>Tags</th>
                         <th>Status</th>
                         <th>Created At</th>
                         <th>Published At</th>
@@ -29,6 +31,14 @@
                                     class="object-cover"></td>
                             <td>{{ $post->title }}</td>
                             <td>{{ $post->views }}</td>
+                            <td>{{ $post->category->name }}</td>
+                            <td>
+                                <div class="flex flex-wrap gap-1">
+                                    @foreach ($post->tags as $postTag)
+                                       <x-tag :name="$postTag->tag->name" />
+                                    @endforeach
+                                </div>
+                            </td>
                             <td>
                                 {{ $post->status }}
                                 @can('admin')

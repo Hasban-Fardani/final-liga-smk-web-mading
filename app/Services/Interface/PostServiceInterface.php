@@ -4,6 +4,7 @@ namespace App\Services\Interface;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
+use Illuminate\Http\Request;
 
 /**
  * Interface for the PostService.
@@ -11,27 +12,18 @@ use App\Models\Post;
 interface PostServiceInterface
 {
     /**
-     * Get all posts.
+     * Retrieve all records from the database.
      *
-     * @return array
+     * @return array The array of records.
      */
     public function getAll();
-
     /**
      * Retrieves all published items
      *
      * @return array The list of published items
      */
     public function getAllPublished();
-
-    /**
-     * Get posts by category.
-     *
-     * @param string $categorySlug
-     * @return array
-     */
-    public function getByCategory(string $categorySlug);
-
+    
     /**
      * Get posts by creator.
      *
@@ -40,6 +32,14 @@ interface PostServiceInterface
      */
     public function getByCreator(string $creatorUsername, bool $published = false);
 
+    /**
+     * Retrieves items by category slug.
+     *
+     * @param string $categorySlug The slug of the category.
+     * @return void
+     */
+    public function getByCategory(string $categorySlug);
+    
     /**
      * Search posts.
      *
@@ -63,7 +63,7 @@ interface PostServiceInterface
      * @param Post $post
      * @return void
      */
-    public function update(UpdatePostRequest $request, Post $post);
+    public function update(Request $request, Post $post);
 
     /**
      * Delete a post.

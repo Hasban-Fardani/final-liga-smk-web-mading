@@ -13,7 +13,7 @@ class AdminService implements AdminServiceInterface
 {
     public function acceptPost(Post $post)
     {
-        if ($post->status === 'PENDING' || $post->status === 'DRAFT' && $post->accepted == false) {
+        if ($post->status === 'PENDING' || $post->status === 'DRAFT') {
             $post->update(['status' => 'PUBLISHED', 'accepted' => true]);
         }
         return $post;

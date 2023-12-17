@@ -16,7 +16,7 @@
                 <x-tag :name="$tag->tag->name" />
             @endforeach
         </div>
-        <h1 class="text-3xl font-bold">{{ $post->title }}</h1>
+        <h1 class="text-3xl font-bold mt-2">{{ $post->title }}</h1>
     </div>
     <p class="mt-4">
         {!! $post->body !!}

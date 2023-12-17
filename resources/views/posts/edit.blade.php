@@ -5,9 +5,10 @@
         <h2 class="text-3xl font-medium">Edit Posts</h2>
         <div class="border-t-2 border-gray-300 mb-6"></div>
 
-        <form action="{{ route('posts.store') }}" method="post" enctype="multipart/form-data"
+        <form action="{{ route('posts.update', $post->id) }}" method="post" enctype="multipart/form-data"
             class="flex flex-col gap-4 w-full">
             @csrf
+            @method('PUT')
             {{-- title --}}
             <div class="flex flex-col">
                 <label for="title">Title</label>

@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\AboutController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AdminPublishPostController;
 use App\Http\Controllers\AdminUserController;
@@ -10,11 +9,10 @@ use App\Http\Controllers\CreatorDashboardController;
 use App\Http\Controllers\CreatorPublishPostController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\PostController;
-use App\Http\Controllers\PostPublishController;
 use App\Http\Controllers\PostSlugController;
 use App\Http\Controllers\ReadPostController;
 use App\Http\Controllers\SavedPostController;
-use App\Http\Controllers\SearchController;
+use App\Http\Controllers\SearchPostController;
 use App\Http\Controllers\UploadImageController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,7 +28,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', IndexController::class)->name('index');
-Route::get('/search', SearchController::class)->name('search');
+Route::get('/search', SearchPostController::class)->name('search');
 Route::post('/login', LoginController::class)->name('login');
 
 // Public routes
@@ -53,6 +51,7 @@ Route::middleware('auth')->group(function () {
 
     // Post routes
     Route::middleware('can:create-post')->group(function () {
+        Route::resource('/posts', PostController::class);
         Route::get('/create-slug', PostSlugController::class)->name('slug');
     });
 

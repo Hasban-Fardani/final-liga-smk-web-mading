@@ -33,7 +33,7 @@ class Post extends Model
         'published_at'
     ];
 
-    public function excerpt()
+    public function createExcerpt()
     {
         // default ends: ...
         // return 20 characters of body
