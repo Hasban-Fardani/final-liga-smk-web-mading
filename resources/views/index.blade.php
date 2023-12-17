@@ -17,11 +17,15 @@
                         </a>
                         <div class="flex w-full justify-between gap-4 mt-1">
                             <p class="text-sm flex"><span>@</span> {{ $post->creator->username }}</p>
-                            <div class="flex gap-2">
+                            <div class="flex gap-2 w-52">
+                                <form action="{{ route('posts.saved.store', $post->id) }}" method="POST">
+                                    @csrf
+                                    <button><i class="fa-solid fa-bookmark hover:text-blue-500"></i></button>
+                                </form>
                                 <p class="text-sm flex gap-1 items-center"><i
                                         class="fa-solid fa-eye"></i>{{ $post->views }} </p>
-                                <p class="text-sm flex gap-1 items-center"><i
-                                        class="fa-solid fa-clock"></i>{{ $post->created_at->diffForHumans() }}</p>
+                                <p class="text-sm flex gap-1 items-center" title="test"><i
+                                        class="fa-solid fa-clock"></i>{{  \Carbon\Carbon::parse( $post->published_at)->diffForHumans() }}</p>
                             </div>
                         </div>
                     </div>
@@ -62,6 +66,7 @@
         </div>
     </div>
     {{-- end Posts --}}
+    
 @endsection
 
 @push('js')
@@ -74,7 +79,7 @@
             if (search || category) {
                 // navigate to #content
                 const element = document.getElementById('posts');
-                element.scrollIntoView();
+                element.scrollIntoView({ behavior: 'smooth' });
             }
 
         }

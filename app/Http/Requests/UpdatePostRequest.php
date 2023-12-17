@@ -23,6 +23,9 @@ class UpdatePostRequest extends FormRequest
     {
         return [
             //
+            'title' => 'string|max:255',
+            'body' => 'string',
+            'category_id' => 'exists:categories,id',
         ];
     }
 }

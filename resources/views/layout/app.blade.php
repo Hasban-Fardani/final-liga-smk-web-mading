@@ -26,7 +26,7 @@
 
 
 
-            <h1 class="flex justify-start lg:justify-start text-2xl text-white text-start font-bold w-1/3"><a
+            <h1 class="flex justify-start lg:justify-start text-2xl text-white text-start font-bold w-1/2 md:w-1/3"><a
                     href="/">Majalah Digital</a></h1>
 
             {{-- search form --}}

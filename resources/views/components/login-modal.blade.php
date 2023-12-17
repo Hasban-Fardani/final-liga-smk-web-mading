@@ -15,9 +15,8 @@
                     required>
             </div>
             <div class="text-center">
-                <div class="border-b"></div>
+                <div class="border-b mb-2"></div>
                 <p>Login With</p>
-                <div class="border-b"></div>
                 <div class="flex gap-2 justify-center mt-2">
                     <div>
                         <input type="radio" value="email" name="type" id="type_email" class="type_login" checked>
@@ -42,6 +41,10 @@
                 <input type="submit" value="Login" class="btn">
             </div>
         </form>
+        {{-- <p>
+            Don't have an account?
+            <a class="text-center mt-4">Register</a>
+        </p> --}}
     </div>
 </dialog>
 

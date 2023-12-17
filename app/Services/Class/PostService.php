@@ -25,7 +25,7 @@ class PostService implements PostServiceInterface
         // get all published posts
         return Post::with(['category', 'creator', 'tags', 'comments'])
             ->published()
-            ->paginate();
+            ->get();
     }
 
     public function getByCategory(string $categorySlug)
@@ -74,7 +74,7 @@ class PostService implements PostServiceInterface
         $request->file('image')->move(public_path($baseDir), $request->file('image')->getClientOriginalName());
 
         // check admin
-        if (auth()->user()->permission === 'admin') {
+        if (auth()->user()->role->permission === 'admin') {
             $post->accepted = true;
         }
 

@@ -16,26 +16,38 @@ class RoleSeeder extends Seeder
         //
         Role::create([
             'name' => 'admin',
-        ]);
+        ]); // 1
 
         Role::create([
             'name' => 'Guru RPL',
-        ]);
+        ]); // 2
+
+        Role::create([
+            'name' => 'Staff TU',
+        ]); // 3
         
         Role::create([
             'name' => 'KM',
-        ]);
+        ]); // 4
 
         Role::create([
             'name' => 'Ketua Osis',
-        ]);
+        ]); // 5
 
         Role::create([
             'name' => 'Osis',
-        ]);
+        ]); // 6
 
         Role::create([
             'name' => 'Anggota Literasi',
-        ]);
+        ]); // 7
+
+        Role::create([
+            'name' => 'Siswa',
+        ]); // 8
+
+        Role::create([
+            'name' => 'Pembaca',
+        ]); // 9
     }
 }

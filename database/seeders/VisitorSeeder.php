@@ -13,8 +13,8 @@ class VisitorSeeder extends Seeder
      */
     public function run(): void
     {
-        // make 200 visitors data temp
-        Visitor::factory(200)->create();
+        // make 1000 visitors data temp
+        Visitor::factory(3000)->create();
 
     }
 }

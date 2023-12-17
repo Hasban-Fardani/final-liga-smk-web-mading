@@ -1,7 +1,7 @@
 @extends('layout.admin')
 
 @section('content')
-    <div class="px-6 py-3 w-full">
+    <div class="px-6 pt-3 pb-20 w-full">
         <h2 class="text-3xl font-medium">Edit Posts</h2>
         <div class="border-t-2 border-gray-300 mb-6"></div>
 

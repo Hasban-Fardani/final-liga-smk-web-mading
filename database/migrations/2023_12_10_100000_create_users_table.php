@@ -14,11 +14,15 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('avatar')->default('/pkg/fontawesome-6.5.1/svgs/solid/user.svg');
-            $table->string('username', 20)->unique();
+            $table->string('username', 25)->unique();
             $table->string('email')->unique();
             $table->string('password');
-            $table->enum('permission', ['admin', 'creator', 'user'])->default('user');
-            $table->enum('type', ['siswa', 'guru', 'pegawai'])->default('siswa');
+            $table->enum('type', ['siswa', 'guru', 'staff'])->default('siswa');
+            
+            $table->enum('permission', ['admin', 'creator', 'read & comment', 'read only'])->default('read & comment');
+            
+            $table->unsignedBigInteger('role_id');
+            $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
             
             $table->rememberToken();
             $table->timestamps();

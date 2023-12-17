@@ -40,7 +40,8 @@ Route::get('/read/{post:slug}', ReadPostController::class)->name('posts.read');
 Route::middleware('auth')->group(function () {
     Route::post('/logout', LogoutController::class)->name('logout');
     Route::get('/saved', [SavedPostController::class, 'index'])->name('posts.saved');
-    Route::post('/saved', [SavedPostController::class, 'store'])->name('posts.saved.store');
+    Route::post('/saved/{post}', [SavedPostController::class, 'store'])->name('posts.saved.store');
+    Route::delete('/saved/{post}', [SavedPostController::class, 'destroy'])->name('posts.saved.destroy');
 
     Route::post('/upload', UploadImageController::class)->name('upload.image');
 

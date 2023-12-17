@@ -45,10 +45,6 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function scopeGetname($query){
-        return $this->username;
-    }
-
     public function scopeDetails($query){
         if ($this->type == 'guru') {
             return DB::table('teacher_details')->where('id', $this->id)->first();
@@ -64,6 +60,6 @@ class User extends Authenticatable
     }
 
     public function role(){
-        return $this->belongsTo(Role::class, 'role_id');
+        return $this->belongsTo(Role::class);
     }
 }

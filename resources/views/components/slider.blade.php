@@ -4,33 +4,34 @@
 {{-- slider --}}
 <div class="relative h-[90vh] md:h-[80vh] overflow-x-hidden slider">
     @if (empty($posts) || count($posts) == 0)
-    {{-- center verical and horizontal --}}
+        {{-- center verical and horizontal --}}
         <p class="text-center">Tidak ada post</p>
     @endif
     {{-- list --}}
     <div class="relative flex image-list">
         @foreach ($posts as $post)
-            <a href="{{ route('posts.read', $post->slug) }}" >
-                {{-- item --}}
-                <div class="absolute opacity-0 image-slide">
+            {{-- item --}}
+            <div class="absolute opacity-0 image-slide">
 
-                    <img src="{{ $post->image }}" alt="{{ $post->title }}"
-                        class="w-screen lg:w-[50vw] h-[90vh] md:h-[80vh] object-cover brightness-50" loading="lazy">
+                <img src="{{ $post->image }}" alt="{{ $post->title }}"
+                    class="w-screen lg:w-[50vw] h-[90vh] md:h-[80vh] object-cover brightness-50" loading="lazy">
+                <a href="{{ route('posts.read', $post->slug) }}" class="description">
                     <div
                         class="absolute bottom-20 md:buttom-12 left-1/2 translate-x-[-50%] py-2 w-[90%] flex flex-col gap-2 justify-start">
-                        <span class="text-white text-center">{{ $post->creator->username }} - {{ $post->created_at->diffForHumans() }}</span>
+                        <span class="text-white text-center">{{ $post->creator->username }} -
+                            {{ $post->created_at->diffForHumans() }}</span>
                         <p class="text-2xl text-white text-center font-medium truncate">
                             {{ $post->title }}
                         </p>
                         <button class="text-white underline">Selengkapnya</button>
                     </div>
-                </div>
-            </a>
+                </a>
+            </div>
         @endforeach
     </div>
 
     {{-- button next / prev --}}
-    <div class="absolute px-6 bottom-6 right-3 flex gap-2">
+    <div class="absolute px-6 bottom-6 right-3 flex gap-2 z-10">
         <button class="w-10 h-10 bg-gray-300 border rounded-full" id="prev_btn"><i
                 class="fa-solid fa-chevron-left"></i></button>
         <button class="w-10 h-10 bg-gray-300 border rounded-full" id="next_btn"><i
@@ -38,7 +39,7 @@
     </div>
 
     {{-- indicator --}}
-    <ul class="absolute left-16 transform -translate-x-1/2 bottom-6 flex gap-2 indicators">
+    <ul class="absolute left-16 transform -translate-x-1/2 bottom-6 flex gap-2 indicators z-10">
         <li class="w-2 h-2 rounded-full bg-white active-indicator"></li>
         @for ($i = 0; $i < count($posts) - 1; $i++)
             <li class="w-2 h-2 rounded-full bg-white"></li>
@@ -48,6 +49,11 @@
 
 @push('css')
     <style>
+        .active-slide {
+            opacity: 1;
+            z-index: 2;
+        }
+
         .active-indicator {
             width: 20px;
         }
@@ -67,6 +73,7 @@
     <script>
         const images = document.querySelectorAll('.image-slide');
         const indicator = document.querySelectorAll('.indicators li');
+        const description = document.querySelectorAll('.description'); 
 
         let index = 0;
 
@@ -92,11 +99,11 @@
             for (let i = 0; i < images.length; i++) {
                 if (i === index) {
                     images[i].classList.remove('opacity-0');
-                    images[i].classList.add('opacity-100');
+                    images[i].classList.add('active-slide');
                     indicator[i].classList.add('active-indicator');
                 } else {
+                    images[i].classList.remove('active-slide');
                     images[i].classList.add('opacity-0');
-                    images[i].classList.remove('opacity-100');
                     indicator[i].classList.remove('active-indicator');
                 }
             }
@@ -106,7 +113,7 @@
 
         setInterval(() => {
             next()
-        }, 3000);
+        }, 5000);
 
         prev_btn.addEventListener('click', prev);
         next_btn.addEventListener('click', next);

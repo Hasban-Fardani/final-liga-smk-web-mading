@@ -20,7 +20,7 @@ class PostController extends Controller
     {
         //
         $posts = $this->postService->getByCreator(auth()->user()->username);
-        if (auth()->user()->permission === 'admin') {
+        if (auth()->user()->role->permission === 'admin') {
             $posts = $this->postService->getAll();
         } 
         return view('posts.index', compact('posts'));

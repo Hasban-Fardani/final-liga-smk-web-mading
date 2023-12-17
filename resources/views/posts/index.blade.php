@@ -1,7 +1,7 @@
 <!-- The only way to do great work is to love what you do. - Steve Jobs -->
 @extends('layout.admin')
 @section('content')
-    <div class="px-6 py-3">
+    <div class="px-6 pt-3 pb-20">
         <div class="flex">
             <h2 class="text-3xl font-medium">Posts</h2>
             <button class="bg-blue-500 text-sm text-white px-4 py-1 ml-6 rounded-md hover:bg-blue-700">
@@ -32,7 +32,7 @@
                             <td>
                                 {{ $post->status }}
                                 @can('admin')
-                                    @if ($post->status == 'PENDING')
+                                    @if ($post->status == 'DRAFT' || $post->status == 'PENDING')
                                         <form action="{{ route('admin.publish', $post->id) }}" method="post">
                                             @csrf
                                             <button type="submit"

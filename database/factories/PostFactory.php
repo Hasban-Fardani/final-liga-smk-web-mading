@@ -17,19 +17,20 @@ class PostFactory extends Factory
      */
     public function definition(): array
     {
-        $accepted = $this->faker->boolean();
+        $accepted = fake()->boolean();
         return [
             //
-            'image' => $this->faker->imageUrl(),
-            'title' => $this->faker->sentence(),
-            'slug' => $this->faker->slug(),
-            'excerpt' => $this->faker->text(maxNbChars:20),
-            'body' => $this->faker->text(),
+            'image' => fake()->imageUrl(),
+            'title' => fake()->sentence(),
+            'slug' => fake()->slug(),
+            'excerpt' => fake()->text(maxNbChars:20),
+            'body' => fake()->text(),
             'accepted' => $accepted,
-            'status' => $accepted ? 'PUBLISHED' : 'PENDING',
-            'views' => $this->faker->numberBetween(0, 1000),
-            'creator_id' => $this->faker->numberBetween(1, 2),
-            'category_id' => $this->faker->numberBetween(1, 2)
+            'status' => $accepted ? 'PUBLISHED' : fake()->randomElement(['DRAFT', 'PENDING']),
+            'published_at' => fake()->dateTimeBetween('-1 year', '+1 day'),
+            'views' => fake()->numberBetween(0, 1000),
+            'creator_id' => fake()->numberBetween(1, 4),
+            'category_id' => fake()->numberBetween(1, 4)
         ];
     }
 }

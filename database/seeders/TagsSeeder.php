@@ -15,7 +15,7 @@ class TagsSeeder extends Seeder
     {
         //
         Tag::create([
-            'name' => 'Komunitas Literasi'
+            'name' => 'Literasi'
         ]);
 
         Tag::create([
@@ -27,7 +27,7 @@ class TagsSeeder extends Seeder
         ]);
         
         Tag::create([
-            'name' => 'Pengembangan'
+            'name' => 'RPL'
         ]);
 
         Tag::create([

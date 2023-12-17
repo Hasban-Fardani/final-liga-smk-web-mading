@@ -12,6 +12,7 @@
 
     {{-- datatables --}}
     <link rel="stylesheet" href="{{ asset('pkg/DataTables/DataTables-1.13.8/css/dataTables.bootstrap5.css') }}">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css">
 
     {{-- <link rel="stylesheet" href="{{ asset('pkg/DataTables/Buttons-2.4.2/css/buttons.dataTables.min.css') }}"> --}}
 
@@ -30,13 +31,13 @@
     @stack('headjs')
 </head>
 
-<body class="md:min-h-screen flex flex-col relative">
+<body class="md:min-h-screen flex flex-col relative overflow-y-hidden">
     <header>
         <nav class="bg-gray-800 w-full flex justify-between items-center px-6 md:px-12 lg:px-6 py-4 relative">
             <h1 class="text-2xl text-white font-bold ">
                 {{-- <i class="fa-solid fa-house"></i> --}}
                 MADIG
-                {{ auth()->user()->permission == 'admin' ? 'ADMIN' : 'CREATOR' }}</h1>
+                {{ auth()->user()->role->permission == 'admin' ? 'ADMIN' : 'CREATOR' }}</h1>
                 
                 <div class="text-md text-white items-center gap-3 hidden lg:flex">
                     <p class="flex">
@@ -56,19 +57,33 @@
                 class="hidden absolute bg-white shadow-lg rounded-lg max-w-[150px] w-1/3 right-12 transition-all duration-200 top-full">
                 <div class="flex flex-col gap-3 px-6 py-3 lg:hidden">
                     <a href="{{ route('index') }}"
-                        class="hover:text-gray-800 hover:bg-white w-full flex gap-2 items-center"><i
-                            class="fa-solid fa-house"></i>Home</a>
+                        class="hover:text-gray-800 hover:bg-white w-full flex gap-2 items-center">
+                        <i class="fa-solid fa-house"></i>
+                        Home
+                    </a>
 
                     <a href="{{ auth()->user()->permission == 'admin' ? route('admin.dashboard') : route('creator.dashboard') }}"
-                        class="hover:text-gray-800 hover:bg-white w-full flex gap-2 items-center"><i
-                            class="fa-solid fa-chart-line w-4"></i>Dashboard</a>
+                        class="hover:text-gray-800 hover:bg-white w-full flex gap-2 items-center">
+                        <i class="fa-solid fa-chart-line w-4"></i>
+                        Dashboard
+                    </a>
                     <a href="{{ route('posts.index') }}"
-                        class="hover:text-gray-800 hover:bg-white w-full flex gap-2 items-center"><i
-                            class="fa-solid fa-newspaper w-4"></i>Posts</a>
+                        class="hover:text-gray-800 hover:bg-white w-full flex gap-2 items-center">
+                        <i class="fa-solid fa-newspaper w-4"></i>
+                        Posts
+                    </a>
+                    {{-- categories (soon) --}}
+                    {{-- <a href="{{ route('categories.index') }}"
+                        class="hover:text-gray-800 hover:bg-white w-full flex gap-2 items-center">
+                        <i class="fa-solid fa-newspaper w-4"></i>
+                        Categories
+                    </a> --}}
                     @can('admin')
                         <a href="{{ route('admin.users') }}"
-                            class="hover:text-gray-800 hover:bg-white w-full flex gap-2 items-center"> <i
-                                class="fa-solid fa-user w-4"></i>User</a>
+                            class="hover:text-gray-800 hover:bg-white w-full flex gap-2 items-center">
+                            <i class="fa-solid fa-user w-4"></i>
+                                User
+                        </a>
                     @endcan
                     <form action="{{ route('logout') }}" method="POST" class="md:hidden">
                         @csrf
@@ -97,9 +112,9 @@
     @endif
 
 
-    <main class="flex md:flex-grow w-full overflow-x-auto overflow-y-hidden">
-        <aside class="bg-gray-800 text-white hidden md:flex flex-col w-[12%] min-w-[150px] h-screen justify-between">
-            <div class="flex flex-col">
+    <main class="flex flex-col md:flex-row w-full h-screen">
+        <aside class="bg-gray-800 text-white hidden md:flex flex-col w-[12%] min-w-[150px] h-full justify-between">
+           <div class="flex flex-col">
                 <a href="{{ route('index') }}"
                     class="px-6 py-3 hover:text-gray-800 hover:bg-white w-full flex gap-2 items-center">
                     <i class="fa-solid fa-house"></i>Home
@@ -107,16 +122,19 @@
 
                 <a href="{{ auth()->user()->permission == 'admin' ? route('admin.dashboard') : route('creator.dashboard') }}"
                     class="px-6 py-3 hover:text-gray-800 hover:bg-white w-full flex gap-2 items-center {{ request()->routeIs('admin.dashboard') ? 'bg-white text-gray-800' : ''}}">
-                    <i class="fa-solid fa-chart-line w-4"></i>Dashboard
+                    <i class="fa-solid fa-chart-line w-4"></i>
+                    Dashboard
                 </a>
                 <a href="{{ route('posts.index') }}"
                     class="px-6 py-3 hover:text-gray-800 hover:bg-white w-full flex gap-2 items-center {{ request()->routeIs('posts.index') ? 'bg-white text-gray-800' : ''}}">
-                    <i class="fa-solid fa-newspaper w-4"></i>Posts
+                    <i class="fa-solid fa-newspaper w-4"></i>
+                    Posts
                 </a>
                 @can('admin')
                     <a href="{{ route('admin.users') }}"
                         class="px-6 py-3 hover:text-gray-800 hover:bg-white w-full flex gap-2 items-center {{ request()->routeIs('admin.users') ? 'bg-white text-gray-800' : ''}}">
-                        <i class="fa-solid fa-user w-4"></i>Users
+                        <i class="fa-solid fa-user w-4"></i>
+                        Users
                     </a>
                 @endcan
                 <form action="{{ route('logout') }}" method="POST" >
@@ -129,12 +147,10 @@
                 </form>
             </div>
         </aside>
-        {{-- {{ auth()->user()->details()}} --}}
-        @yield('content')
+        <div class="flex-grow overflow-x-auto">
+            @yield('content')
+        </div>
     </main>
-    <footer>
-        {{-- <x-footer></x-footer> --}}
-    </footer>
 
     {{-- JQuery --}}
     <script src="{{ asset('pkg/jQuery-3.7.0/jquery-3.7.0.min.js') }}"></script>
@@ -144,6 +160,7 @@
 
     {{-- Datatables buttons --}}
     <script src="{{ asset('pkg/DataTables/Buttons-2.4.2/js/buttons.dataTables.min.js') }}"></script>
+    <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
 
     {{--  --}}
     <script src="{{ asset('pkg/DataTables/pdfmake-0.2.7/pdfmake.min.js') }}"></script>

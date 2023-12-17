@@ -5,6 +5,7 @@ namespace App\Models;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
 class Post extends Model
@@ -21,10 +22,19 @@ class Post extends Model
         'category_id',
         'body',
         'creator_id',
+        'status',
+        'accepted',
         'published_at',
     ];
 
-    public function excerpt(){
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'published_at'
+    ];
+
+    public function excerpt()
+    {
         // default ends: ...
         // return 20 characters of body
         return Str::limit($this->body, self::EXCERPT_LENGHT);

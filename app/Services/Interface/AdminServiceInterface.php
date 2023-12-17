@@ -11,4 +11,7 @@ interface AdminServiceInterface {
     public function getTotalPosts();
     public function getTotalPendingPosts();
     public function getTotalCreators();
+    
+    public function getVisitorsPerDayOfMonth($month, $year);
+    public function getVisitorsPerCategory();
 }

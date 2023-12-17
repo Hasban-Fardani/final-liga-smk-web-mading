@@ -27,7 +27,7 @@ class UserSeeder extends Seeder
         User::create([
             'email' => 'creator@localhost',
             'username' => 'creator',
-            'role_id' => 4,
+            'role_id' => 2,
             'permission' => 'creator',
             'type' => 'siswa',
             'password' => bcrypt('creator')
@@ -36,12 +36,12 @@ class UserSeeder extends Seeder
         User::create([
             'email' => 'user@localhost',
             'username' => 'user',
-            'role_id' => 4,
-            'permission' => 'user',
+            'role_id' => 8,
+            'permission' => 'read & comment',
             'type' => 'siswa',
             'password' => bcrypt('user')
         ]);
 
-        User::factory(30)->create();
+        User::factory(100)->create();
     }
 }

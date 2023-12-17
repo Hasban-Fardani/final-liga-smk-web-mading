@@ -90,3 +90,7 @@ body {
 #dataTable_previous {
     @apply text-sm p-1 hover:font-bold;
 }
+
+#dataTable_paginate > span > a.paginate_button.current {
+    @apply bg-blue-700 text-white;
+}

@@ -22,7 +22,7 @@ class VisitorFactory extends Factory
             'user_agent' => fake()->userAgent(),
             'user_id' => fake()->numberBetween(1, 30),
             'slug' => fake()->randomElement(['home', 'post1', 'post2', 'post3']),
-            'visited_at' => now(),
+            'visited_at' => fake()->dateTimeBetween('-1 month -16 day', '-1 day'),
         ];
     }
 }
