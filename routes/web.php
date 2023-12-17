@@ -53,7 +53,6 @@ Route::middleware('auth')->group(function () {
 
     // Post routes
     Route::middleware('can:create-post')->group(function () {
-        Route::resource('posts', PostController::class);
         Route::get('/create-slug', PostSlugController::class)->name('slug');
     });
 
