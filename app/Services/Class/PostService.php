@@ -81,7 +81,6 @@ class PostService implements PostServiceInterface
         $post->category_id = $data['category_id'];
         $post->creator_id = auth()->user()->id;
         $post->slug = $data['slug'];
-        $post->excerpt = $data['excerpt'] ? $data['excerpt'] : $post->createExcerpt();
 
         // set base dir
         $baseDir = '/images/posts/';

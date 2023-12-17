@@ -11,7 +11,7 @@
                     <div class="absolute opacity-0 image-slide">
 
                         <img src="{{ $post->image }}" alt="{{ $post->title }}"
-                            class="w-screen lg:w-[50vw] h-[90vh] md:h-[80vh] object-cover brightness-50" loading="lazy">
+                            class="w-screen lg:w-[50vw] h-[90vh] md:h-[80vh] object-cover brightness-50">
                         <a href="{{ route('posts.read', $post->slug) }}" class="description">
                             <div
                                 class="absolute bottom-20 md:buttom-12 left-1/2 translate-x-[-50%] py-2 w-[90%] flex flex-col gap-2 justify-start">

@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('image');
             $table->string('title');
             $table->string('slug')->unique();
-            $table->string('excerpt', 20);
             $table->text('body');
             $table->boolean('accepted')->default(false);
             $table->enum('status', ['PUBLISHED', 'DRAFT', 'UNPUBLISHED', 'REJECTED', 'PENDING'])->default('DRAFT');
