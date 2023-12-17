@@ -68,7 +68,6 @@ class PostService implements PostServiceInterface
             ->where('status', 'PUBLISHED')
             ->where('accepted', true)
             ->get($columns));
-            dd(DB::getQueryLog());
         return $posts;
     }
 

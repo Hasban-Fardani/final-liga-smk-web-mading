@@ -31,7 +31,7 @@
 
             {{-- search form --}}
             <div class="hidden md:flex justify-center items-center w-1/3">
-                <form action="/search" method="GET">
+                <form action="{{route('search', ['q' => request('q'), 'category' => request('category'), 'tag' => request('tag')])}}" method="GET">
                     <input type="text" name="q" id="q" value="{{ request('q') }}"
                         class="rounded-md text-lg px-2 w-[80%]">
                     <button type="submit"><i class="fa-solid fa-magnifying-glass p-1 text-white"></i></button>

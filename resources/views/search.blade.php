@@ -9,7 +9,7 @@
                     <li><a href="{{route('search')}}" class="{{ request()->category == null ? 'font-bold' : '' }}">Semua</a></li>
                     @foreach ($categories as $category)
                         <li>
-                            <a href="{{ route('search', ['category' => $category->slug, 'tag' => request()->tag]) }}"
+                            <a href="{{ route('search', ['category' => $category->slug, 'tag' => request()->tag, 'q' => request()->q]) }}"
                                 class="{{ request()->category == $category->slug ? 'font-bold' : '' }}">{{ $category->name }}</a>
                         </li>
                     @endforeach
@@ -22,7 +22,7 @@
                     </li>
                     @foreach ($tags as $tag)
                         <li>
-                            <a href="{{ route('search', ['tag' => $tag->name, 'category' => request()->category]) }}"
+                            <a href="{{ route('search', ['tag' => $tag->name, 'category' => request()->category, 'q' => request()->q]) }}"
                                 class="{{ request()->tag == $tag->name ? 'font-bold' : '' }}">
                             <x-tag :name="$tag->name" />
                             </a>
